@@ -1,0 +1,11 @@
+
+VVP/.vs/
+VVP/Library/
+VVP/Library/
+VVP/obj/
+VVP/Logs/
+VVP/Temp/
+VVP/UserSettings/
+VVP/.vsconfig
+VVP/*.csproj
+VVP/*.sln
