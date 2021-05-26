@@ -119,11 +119,11 @@ public class OJH_PlayerMove : MonoBehaviour
             anim.SetTrigger("Jump");
         }
 
-        if (dir.magnitude > 0)
-        {
-            state = PlayerState.Run;
-            anim.SetTrigger("Run");
-        }
+        //if (dir.magnitude > 0)
+        //{
+        //    state = PlayerState.Run;
+        //    anim.SetTrigger("Run");
+        //}
     }
     void Run()
     {
