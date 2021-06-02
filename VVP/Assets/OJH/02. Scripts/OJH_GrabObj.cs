@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class OJH_GrabObj : MonoBehaviour
 {
+    private Animator _anim;
+
     LineRenderer lr;
 
     // 잡은 놈의 트랜스폼
@@ -22,6 +24,7 @@ public class OJH_GrabObj : MonoBehaviour
     void Start()
     {
         lr = GetComponent<LineRenderer>();
+        _anim = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -52,16 +55,34 @@ public class OJH_GrabObj : MonoBehaviour
     void CatchObj()
     {
 
+        int layerMask = 1 << 6;
+
+        layerMask = ~layerMask;
+
         if(OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.RTouch))
         { 
-            Collider [] hits = Physics.OverlapSphere(transform.position, 0.3f);
+            Collider [] hits = Physics.OverlapSphere(transform.position, 0.3f, layerMask);
+
+            if (!_anim.GetBool("IsGrabbing"))
+            {
+                _anim.SetBool("IsGrabbing", true);
+            }
+
+            else
+            {
+                //if we let go of grab, set IsGrabbing to false
+                if (_anim.GetBool("IsGrabbing"))
+                {
+                    _anim.SetBool("IsGrabbing", false);
+                }
+            }
 
             //Ray ray = new Ray(transform.position, transform.forward);
             //// 반지름이 r인 구모양을 발사한다
             //RaycastHit hit;
             //if(Physics.SphereCast(ray, 0.5f, out hit, 100))
 
-            if(hits.Length > 0) // 위의 주석처리를 사용하려면 hit로 사용하면 되고, 이걸 쓰려면 hits[0]으로
+            if (hits.Length > 0) // 위의 주석처리를 사용하려면 hit로 사용하면 되고, 이걸 쓰려면 hits[0]으로
             {
                 // 잡은 놈 저장
                 catchedObj = hits[0].transform;
@@ -97,6 +118,11 @@ public class OJH_GrabObj : MonoBehaviour
         // 오른손 B 버튼을 떼면
         if (OVRInput.GetUp(OVRInput.Button.Two, OVRInput.Controller.RTouch))
         {
+
+            if (_anim.GetBool("IsGrabbing"))
+            {
+                _anim.SetBool("IsGrabbing", false);
+            }
             // 잡고 있는 오브젝트의 부모를 null로
             catchedObj.SetParent(null);
             // 잡고있는 오브젝트 -> 리기드바디 -> 이즈키네메틱을 false로
