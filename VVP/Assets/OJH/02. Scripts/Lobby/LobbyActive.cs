@@ -13,6 +13,8 @@ public class LobbyActive : MonoBehaviour
         Stern
     }
 
+    int rocketCnt;
+
     Vector3 dir;
     CharacterController cc;
     float yVelocity;
@@ -152,7 +154,7 @@ public class LobbyActive : MonoBehaviour
             state = PcPlayerState.Run;
             anim.SetTrigger("Run");
         }
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && jumpCnt < maxjumpCnt)
         {
             state = PcPlayerState.Jump;
             anim.SetTrigger("Jump");
@@ -167,7 +169,7 @@ public class LobbyActive : MonoBehaviour
             state = PcPlayerState.Idle;
             anim.SetTrigger("Idle");
         }
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && jumpCnt < maxjumpCnt)
         {
             state = PcPlayerState.Jump;
             anim.SetTrigger("Jump");
