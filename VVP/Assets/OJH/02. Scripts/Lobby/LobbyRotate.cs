@@ -41,7 +41,9 @@ public class LobbyRotate : MonoBehaviour
 
 
         // 상하로 움직일 때 뒤집히는 문제가 발생함. -> 제한을 걸어줘야함.
-        rotX = Mathf.Clamp(rotX, -90, 90); // rotX 최소 -90 최대 90으로 고정해서 잡아줌
+        // rotX = Mathf.Clamp(rotX, -90, 90); // rotX 최소 -90 최대 90으로 고정해서 잡아줌
+
+        rotX = Mathf.Clamp(rotX, -10, 0);
 
 
         // 받아온 값으로 물체를 회전하고 싶다. 오른쪽이면 ++, 왼쪽이면 --

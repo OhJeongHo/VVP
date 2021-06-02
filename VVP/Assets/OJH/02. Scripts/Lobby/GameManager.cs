@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Rigidbody rb;
+        // Rigidbody rb;
         // rb.AddExplosionForce()
         // rb.AddForceAtPosition()
     }
