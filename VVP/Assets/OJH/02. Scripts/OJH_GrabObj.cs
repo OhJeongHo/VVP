@@ -59,23 +59,28 @@ public class OJH_GrabObj : MonoBehaviour
 
         layerMask = ~layerMask;
 
+        if(OVRInput.GetUp(OVRInput.Button.Two, OVRInput.Controller.RTouch))
+        {
+            
+            _anim.SetBool("IsGrabbing", false);
+        }
+
         if(OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.RTouch))
         { 
             Collider [] hits = Physics.OverlapSphere(transform.position, 0.3f, layerMask);
 
-            if (!_anim.GetBool("IsGrabbing"))
-            {
-                _anim.SetBool("IsGrabbing", true);
-            }
-
-            else
-            {
-                //if we let go of grab, set IsGrabbing to false
-                if (_anim.GetBool("IsGrabbing"))
-                {
-                    _anim.SetBool("IsGrabbing", false);
-                }
-            }
+            _anim.SetBool("IsGrabbing", true);
+            //if (!_anim.GetBool("IsGrabbing"))
+            //{
+               
+            //}
+            //else
+            //{                
+            //    if (_anim.GetBool("IsGrabbing"))
+            //    {
+            //        _anim.SetBool("IsGrabbing", false);
+            //    }
+            //}
 
             //Ray ray = new Ray(transform.position, transform.forward);
             //// 반지름이 r인 구모양을 발사한다

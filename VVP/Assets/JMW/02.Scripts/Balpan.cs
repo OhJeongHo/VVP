@@ -6,16 +6,19 @@ public class Balpan : MonoBehaviour
 {
     Renderer AColor;
 
-    public Tower owner;
+    public Tower Tr;
 
     public void ChangeSwitch()
     {
         AColor = gameObject.GetComponent<Renderer>();
+        
+        
+
+
     }
     
     void Start()
     {
-        
     }
 
    
@@ -29,19 +32,12 @@ public class Balpan : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-
+            Tr.shoots();
 
             this.gameObject.GetComponent<Renderer>().material.color = Color.red;
-
-            GameObject.Find("HMC").GetComponent<Tower>().shoots();
-
             gameObject.GetComponent<BoxCollider>().enabled = false;
-
             Invoke("OnSwitchon", 10);
-
-
         }
-
     }
 
     public void OnSwitchon()

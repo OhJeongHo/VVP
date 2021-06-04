@@ -25,14 +25,14 @@ public class HandAnimation : MonoBehaviour {
                 _anim.SetBool("IsGrabbing", true);
             }
         }
-        else
-        {
-            //if we let go of grab, set IsGrabbing to false
-            if(_anim.GetBool("IsGrabbing"))
-            {
-                _anim.SetBool("IsGrabbing", false);
-            }
-        }
+        //else
+        //{
+        //    //if we let go of grab, set IsGrabbing to false
+        //    if(_anim.GetBool("IsGrabbing"))
+        //    {
+        //        _anim.SetBool("IsGrabbing", false);
+        //    }
+        //}
 
 	}
 }
