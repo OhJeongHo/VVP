@@ -5,11 +5,19 @@ using UnityEngine.UI;
 
 public class VRUIRay : MonoBehaviour
 {
+    public static VRUIRay instance;
     // 오른손
     public Transform rightHand;
     // 이미지
     public Transform dot;
+    public GameObject keyboard1, keyboard2, keyboard3;
 
+    public InputField inputtext;
+
+    private void Awake()
+    {
+        instance = this;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -45,12 +53,29 @@ public class VRUIRay : MonoBehaviour
                     {
                         btn.onClick.Invoke();
                     }
+                    // 인풋필드를 가져온다.
+                    inputtext = hit.transform.GetComponent<InputField>();
+                    if (inputtext != null)
+                    {   
+                        keyboard1.SetActive(true);
+                        keyboard2.SetActive(true);
+                        keyboard3.SetActive(true);
+                    }
+
                 }
             }
         }
         else
         {
             dot.gameObject.SetActive(false);
+        }
+    }
+
+    public void SetText(string t)
+    {
+        if(inputtext != null)
+        {
+            inputtext.text = t;
         }
     }
 }

@@ -13,12 +13,14 @@ public class LobbyActive : MonoBehaviour
         Stern
     }
 
-    int rocketCnt;
-
+    public bool rocketMode = false;
+    public bool sternMode = false;
     Vector3 dir;
     CharacterController cc;
     float yVelocity;
     public float jumpCnt;
+    public float jumpTime;
+    bool jumpbool = false;
     public float maxjumpCnt = 1;
     public float jumpPower = 2;
     float gravity = -9.8f;
@@ -74,7 +76,7 @@ public class LobbyActive : MonoBehaviour
                     Jump();
                     break;
                 case PcPlayerState.Fly:
-                    Jump();
+                    Fly();
                     break;
                 case PcPlayerState.Stern:
                     Jump();
@@ -83,7 +85,22 @@ public class LobbyActive : MonoBehaviour
                     break;
             }
 
+            JumpTime();
             PcPlayerMove();
+            Flying();
+            // RocketTest();
+        }
+    }
+
+    void RocketTest()
+    {
+        if (rocketMode)
+        {
+            print("로켓모드 On");
+        }
+        else
+        {
+            print("로켓모드 Off");
         }
     }
 
@@ -114,6 +131,11 @@ public class LobbyActive : MonoBehaviour
 
     void PcPlayerMove()
     {
+        if(rocketMode == true)
+        {
+            return;
+        }
+
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
@@ -130,10 +152,11 @@ public class LobbyActive : MonoBehaviour
 
         if (jumpCnt < maxjumpCnt)
         {
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetButtonDown("Jump") && jumpTime == 0)
             {
                 yVelocity = jumpPower;
                 jumpCnt++;
+                jumpbool = true;
             }
         }
 
@@ -146,45 +169,143 @@ public class LobbyActive : MonoBehaviour
         cc.Move(dir * 5 * Time.deltaTime);
     }
 
+    void JumpTime()
+    {
+        if (jumpbool)
+        {
+            jumpTime += Time.deltaTime;
+            if (jumpTime > 1)
+            {
+                jumpTime = 0;
+                jumpbool = false;
+            }
+        }
+    }
+
+    void Flying()
+    {
+        if (GameManager.instance.rocketCnt == 0)
+        {
+            rocketMode = false;
+            return;
+        }
+        else
+        {
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                rocketMode = true;
+
+                currTime += Time.deltaTime;
+                // 로켓 부스터 이팩트 넣어야함.
+                if (currTime >= 5)
+                {
+                    GameManager.instance.rocketCnt--;
+                    rocketMode = false;
+                }
+            }
+
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                rocketMode = false;
+            }
+        }
+        
+    }
     void Idle()
     {
+        if (rocketMode)
+        {
+            state = PcPlayerState.Fly;
+            anim.SetTrigger("Fly");
+            return;
+        }
+
         Vector3 moveDir = new Vector3(dir.x, 0, dir.z);
         if (moveDir.magnitude > 0 && !Input.GetButtonDown("Jump"))
         {
             state = PcPlayerState.Run;
             anim.SetTrigger("Run");
         }
-        if (Input.GetButtonDown("Jump") && jumpCnt < maxjumpCnt)
+        if (Input.GetButtonDown("Jump") && jumpTime == 0)
         {
             state = PcPlayerState.Jump;
             anim.SetTrigger("Jump");
         }
+        
     }
 
     void Run()
     {
+        if (rocketMode == true)
+        {
+            state = PcPlayerState.Fly;
+            anim.SetTrigger("Fly");
+            return;
+        }
+
         Vector3 moveDir = new Vector3(dir.x, 0, dir.z);
         if (moveDir.magnitude == 0 && !Input.GetButtonDown("Jump"))
         {
             state = PcPlayerState.Idle;
             anim.SetTrigger("Idle");
         }
-        if (Input.GetButtonDown("Jump") && jumpCnt < maxjumpCnt)
+        if (Input.GetButtonDown("Jump") && jumpTime == 0)
         {
             state = PcPlayerState.Jump;
             anim.SetTrigger("Jump");
         }
-
     }
 
     void Jump()
     {
-        currTime += Time.deltaTime;
-        if (cc.isGrounded && currTime >= 0.1f)
+        if (rocketMode == true)
+        {
+            state = PcPlayerState.Fly;
+            anim.SetTrigger("Fly");
+            return;
+        }
+
+        if (cc.isGrounded)
+        {
+            Vector3 moveDir = new Vector3(dir.x, 0, dir.z);
+            if (moveDir.magnitude == 0)
+            {
+                state = PcPlayerState.Idle;
+                anim.SetTrigger("Idle");
+            }
+            else
+            {
+                state = PcPlayerState.Run;
+                anim.SetTrigger("Run");
+            }
+        }
+    }
+
+    void Fly()
+    {
+        if (rocketMode == false)
         {
             state = PcPlayerState.Idle;
             anim.SetTrigger("Idle");
-            currTime = 0;
+        }
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // VR과 충돌
+        if (other.gameObject.layer == 7)
+        {
+            sternMode = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == 7)
+        {
+            // 벨로시티를 사용해서
+            // 벨로시티 값이 작으면 곧장 sternMode 해제
+            // 벨로시티 값이 크면 1초 후에 sternMode 해제
         }
     }
 }

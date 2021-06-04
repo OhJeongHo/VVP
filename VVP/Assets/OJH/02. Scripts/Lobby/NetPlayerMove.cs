@@ -172,7 +172,7 @@ public class NetPlayerMove : MonoBehaviourPun
         {
             state = PcPlayerState.Idle;
             photonView.RPC("AniTrigger", RpcTarget.All, "Idle");
-            //anim.SetTrigger("Idle");
+            // anim.SetTrigger("Idle");
             currTime = 0;
         }
     }

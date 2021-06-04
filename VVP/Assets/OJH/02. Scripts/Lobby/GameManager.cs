@@ -7,8 +7,11 @@ using UnityEngine.XR;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public GameObject playerRocket;
 
     public bool isVR;
+
+    public int rocketCnt;
 
     public static bool isPresent()
     {
@@ -38,6 +41,24 @@ public class GameManager : MonoBehaviour
         // rb.AddExplosionForce()
         // rb.AddForceAtPosition()
     }
+
+    private void Update()
+    {
+        RocketImg();
+    }
+
+    void RocketImg()
+    {
+        if (rocketCnt == 0)
+        {
+            playerRocket.SetActive(false);
+        }
+        if (rocketCnt > 0)
+        {
+            playerRocket.SetActive(true);
+        }
+    }
+
     public void OnPcClick()
     {
         SceneManager.LoadScene("OJH_LobbyScene");
