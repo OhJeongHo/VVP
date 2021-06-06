@@ -13,7 +13,7 @@ public class OJH_GrabObj : MonoBehaviour
     Transform catchedObj;
 
     // 던지는 힘
-    public float throwPower = 2f;
+    public float throwPower = 10f;
 
     // 큐브 공장
     public GameObject cubeFactory;
@@ -56,16 +56,17 @@ public class OJH_GrabObj : MonoBehaviour
     {
 
         int layerMask = 1 << 6;
+        int layer2 = 1 << 8;
 
-        layerMask = ~layerMask;
+        layerMask = ~(layerMask | layer2);
 
-        if(OVRInput.GetUp(OVRInput.Button.Two, OVRInput.Controller.RTouch))
+        if(OVRInput.GetUp(OVRInput.Button.Any, OVRInput.Controller.RTouch))
         {
             
             _anim.SetBool("IsGrabbing", false);
         }
 
-        if(OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.RTouch))
+        if(OVRInput.GetDown(OVRInput.Button.Any, OVRInput.Controller.RTouch))
         { 
             Collider [] hits = Physics.OverlapSphere(transform.position, 0.3f, layerMask);
 
@@ -121,7 +122,7 @@ public class OJH_GrabObj : MonoBehaviour
             return;
         }
         // 오른손 B 버튼을 떼면
-        if (OVRInput.GetUp(OVRInput.Button.Two, OVRInput.Controller.RTouch))
+        if (OVRInput.GetUp(OVRInput.Button.Any, OVRInput.Controller.RTouch))
         {
 
             if (_anim.GetBool("IsGrabbing"))

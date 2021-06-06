@@ -7,6 +7,9 @@ TagManager:
   - vrkb_mallet
   - vrkb_image0
   - vrkb_label0
+  - Wall
+  - Castle
+  - Tank
   layers:
   - Default
   - TransparentFX
@@ -18,7 +21,7 @@ TagManager:
   - Player
   - VRPlayer
   - Wall
-  - 
+  - Potan
   - 
   - 
   - 

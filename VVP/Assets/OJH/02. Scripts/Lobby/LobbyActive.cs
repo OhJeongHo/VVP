@@ -88,21 +88,9 @@ public class LobbyActive : MonoBehaviour
             JumpTime();
             PcPlayerMove();
             Flying();
-            // RocketTest();
         }
     }
 
-    void RocketTest()
-    {
-        if (rocketMode)
-        {
-            print("로켓모드 On");
-        }
-        else
-        {
-            print("로켓모드 Off");
-        }
-    }
 
     void VrPlayerMove()
     {
@@ -111,7 +99,7 @@ public class LobbyActive : MonoBehaviour
 
         dir = transform.forward * v + transform.right * h;
         dir.Normalize();
-        print(dir);
+        // print(dir);
 
         cc.Move(dir * 2 * Time.deltaTime);
 
@@ -119,7 +107,7 @@ public class LobbyActive : MonoBehaviour
         //{
         //    transform.position += transform.forward * 1;
         //}
-
+        
         Vector2 joyStickR = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch);
         if (joyStickR.magnitude > 0)
         {
@@ -150,9 +138,9 @@ public class LobbyActive : MonoBehaviour
             yVelocity = 0;
         }
 
-        if (jumpCnt < maxjumpCnt)
+        if (Input.GetButtonDown("Jump") && jumpTime == 0)
         {
-            if (Input.GetButtonDown("Jump") && jumpTime == 0)
+            if (jumpCnt < maxjumpCnt)
             {
                 yVelocity = jumpPower;
                 jumpCnt++;
@@ -199,7 +187,7 @@ public class LobbyActive : MonoBehaviour
                 // 로켓 부스터 이팩트 넣어야함.
                 if (currTime >= 5)
                 {
-                    GameManager.instance.rocketCnt--;
+                    GameManager.instance.RocketImg(-1);
                     rocketMode = false;
                 }
             }

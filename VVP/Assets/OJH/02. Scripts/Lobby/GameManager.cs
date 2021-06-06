@@ -9,8 +9,9 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public GameObject playerRocket;
 
+    // public LobbyActive myplayer;
+    
     public bool isVR;
-
     public int rocketCnt;
 
     public static bool isPresent()
@@ -44,28 +45,28 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        RocketImg();
+      
     }
 
-    void RocketImg()
+    
+    public void RocketImg(int addValue)
     {
+        rocketCnt += addValue;
+
         if (rocketCnt == 0)
         {
-            playerRocket.SetActive(false);
+            if (playerRocket.GetComponent<MeshRenderer>().enabled == true)
+            {
+                playerRocket.GetComponent<MeshRenderer>().enabled = false; 
+            }
+            //myplayer.등짝붙은애 보여주는 함수호출
         }
         if (rocketCnt > 0)
         {
-            playerRocket.SetActive(true);
+            if (playerRocket.GetComponent<MeshRenderer>().enabled == false)
+            {
+                playerRocket.GetComponent<MeshRenderer>().enabled = true;
+            }
         }
-    }
-
-    public void OnPcClick()
-    {
-        SceneManager.LoadScene("OJH_LobbyScene");
-    }
-
-    public void OnVrClick()
-    {
-        SceneManager.LoadScene("OJH_LobbyScene");
     }
 }
