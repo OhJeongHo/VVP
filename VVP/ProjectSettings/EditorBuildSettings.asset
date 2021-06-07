@@ -11,9 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/OJH/01. Scenes/OJH_RoomScene.unity
     guid: 57e59678223c1af419af85a99c86e67c
-  - enabled: 1
-    path: Assets/OJH/01. Scenes/OJH_BigBattleScene.unity
-    guid: 058f6df4c3226c94dab22b9ab9ad412b
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 2e09d79613b70d4478691936fa623e26, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 3ada7a1296d82a648a78ff9692631382, type: 2}

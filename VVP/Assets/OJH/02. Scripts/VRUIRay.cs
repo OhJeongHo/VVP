@@ -27,10 +27,6 @@ public class VRUIRay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.instance.isVR == false)
-        {
-            return;
-        }
         Ray ray = new Ray(rightHand.position, rightHand.forward);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))

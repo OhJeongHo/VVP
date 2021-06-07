@@ -76,6 +76,7 @@ public class OJH_NetPlayer : MonoBehaviourPun, IPunObservable
             isVR = GameManager.instance.isVR;
             photonView.RPC("SendIsVR", RpcTarget.AllBuffered, isVR);
         }
+        
     }
 
     // Update is called once per frame

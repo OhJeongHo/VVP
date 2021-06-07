@@ -5,22 +5,19 @@ using UnityEngine;
 public class OJH_PlayerRocket : MonoBehaviour
 {
     public GameObject player;
-    public GameObject fire;
-    public GameObject rocketSound;
-    CharacterController cc;
     float speed = 10;
     Vector3 dir;
 
     // Start is called before the first frame update
     void Start()
     {
-        cc = player.GetComponent<CharacterController>();
-        GameManager.instance.playerRocket = gameObject;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+
         RocketMove();
     }
 
@@ -28,33 +25,34 @@ public class OJH_PlayerRocket : MonoBehaviour
 
     void RocketMove()
     {
-        if (player.GetComponent<OJH_BattlePlayer>().rocketMode == false)// GameManager.instance.rocketCnt == 0)
+        if (player.GetComponent<LobbyActive>().rocketMode == false)// GameManager.instance.rocketCnt == 0)
         {
-            if (fire.activeSelf)
-            {
-                fire.SetActive(false);
-                rocketSound.SetActive(false);
-            }
             return;
         }
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            fire.SetActive(true);
-            rocketSound.SetActive(true);
+            // 로켓 부스터 이팩트 넣어야함.
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
             
 
-            dir = transform.forward * v + transform.right * h + Vector3.up;
+            dir = transform.forward * v + transform.right * h + transform.up;
             dir.Normalize();
 
-            cc.Move(dir * speed * Time.deltaTime);
-            // player.transform.position += dir * speed * Time.deltaTime;
+            player.transform.position += dir * speed * Time.deltaTime;
             //transform.position += dir * 5 * Time.deltaTime;
         }
-        
     }
 
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // 땅과 충돌
+        if (other.gameObject.layer == 6)
+        {
+            player.GetComponent<LobbyActive>().rocketMode = false;
+        }
+    }
     
 }

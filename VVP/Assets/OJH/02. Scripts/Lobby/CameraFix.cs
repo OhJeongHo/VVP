@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Photon.Pun;
 
 public class CameraFix : MonoBehaviour
 {
@@ -24,13 +23,5 @@ public class CameraFix : MonoBehaviour
         gameObject.SetActive(false);
         UICam.gameObject.SetActive(false);
         player.SetActive(true);
-    }
-
-    public void OnClickBattleStart()
-    {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            PhotonNetwork.LoadLevel("OJH_BigBattleScene");
-        }
     }
 }
