@@ -14,7 +14,7 @@ public class LaserFire : MonoBehaviour
     }
 
     
-    void Update()
+    void LateUpdate()
     {
 
         //// 1번키를 누르면

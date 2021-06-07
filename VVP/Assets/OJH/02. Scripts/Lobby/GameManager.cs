@@ -3,9 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public float GameTime = 180;
+    public Text GameTimeText;
+    //시간담당
+
+
     public static GameManager instance;
     public GameObject playerRocket;
 
@@ -45,10 +51,20 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-      
+        if ((int)GameTime == 0)
+        {
+        }
+        else
+        {
+            GameTime -= Time.deltaTime;
+            GameTimeText.text = "Time : " + (int)(GameTime / 60) % 60 + ":" + (int)(GameTime % 60);
+
+            return;
+        }
+
     }
 
-    
+
     public void RocketImg(int addValue)
     {
         rocketCnt += addValue;
