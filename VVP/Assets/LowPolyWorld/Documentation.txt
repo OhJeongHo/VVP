@@ -1,4 +1,0 @@
-Keep in mind that tree leafs and water are using
-materials with "Roughness setup", and wooden objects 
-are using "Legasy Shader/Decal"
-Feel free to experiment.
