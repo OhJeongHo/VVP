@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
         RocketImg();
     }
 
-    void RocketImg()
+    public void RocketImg()
     {
         if (rocketCnt == 0)
         {

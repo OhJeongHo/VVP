@@ -183,7 +183,7 @@ public class OJH_BattlePlayer : MonoBehaviourPun
                 // 로켓 부스터 이팩트 넣어야함.
                 if (currTime >= 5)
                 {
-                    GameManager.instance.RocketImg(-1);
+                    GameManager.instance.RocketImg();
                     rocketMode = false;
                 }
             }
