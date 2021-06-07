@@ -23,7 +23,7 @@ public class OJH_LHand : MonoBehaviour
     }
     void Rock()
     {
-        if (OVRInput.Get(OVRInput.Button.Any, OVRInput.Controller.RTouch))
+        if (OVRInput.Get(OVRInput.Button.Any, OVRInput.Controller.LTouch))
         {
             GameObject rocks = Instantiate(rock);
             rocks.transform.position = transform.position;

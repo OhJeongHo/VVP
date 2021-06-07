@@ -68,7 +68,7 @@ public class OJH_GrabObj : MonoBehaviour
 
         if(OVRInput.GetDown(OVRInput.Button.Any, OVRInput.Controller.RTouch))
         { 
-            Collider [] hits = Physics.OverlapSphere(transform.position, 0.3f, layerMask);
+            Collider [] hits = Physics.OverlapSphere(transform.position, 0.7f, layerMask);
 
             _anim.SetBool("IsGrabbing", true);
             //if (!_anim.GetBool("IsGrabbing"))
@@ -98,18 +98,18 @@ public class OJH_GrabObj : MonoBehaviour
                 Rigidbody rb = hits[0].transform.GetComponent<Rigidbody>();
                 rb.isKinematic = true;
 
-                // 잡은 놈을 손 위치로
-                // hit.transform.position = transform.position
-                hits[0].transform.localPosition = Vector3.zero;
+                //// 잡은 놈을 손 위치로
+                //// hit.transform.position = transform.position
+                //hits[0].transform.localPosition = Vector3.zero;
 
-                // 큐브 공장에서 큐브 만든다
-                GameObject cube = Instantiate(cubeFactory);
+                //// 큐브 공장에서 큐브 만든다
+                //GameObject cube = Instantiate(cubeFactory);
 
-                // 만든 큐브를 왼쪽 손에 붙인다
-                cube.transform.SetParent(leftHand);
+                //// 만든 큐브를 왼쪽 손에 붙인다
+                //cube.transform.SetParent(leftHand);
 
-                // 만든 큐브를 왼손 좌표에 위치시킨다
-                cube.transform.localPosition = Vector3.zero;
+                //// 만든 큐브를 왼손 좌표에 위치시킨다
+                //cube.transform.localPosition = Vector3.zero;
             }
         }
     }

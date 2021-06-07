@@ -10770,7 +10770,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25443fb8919d4414cad5e806dc2e0014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwPower: 2
+  throwPower: 10
   cubeFactory: {fileID: 0}
   leftHand: {fileID: 0}
 --- !u!114 &1384399131000957706

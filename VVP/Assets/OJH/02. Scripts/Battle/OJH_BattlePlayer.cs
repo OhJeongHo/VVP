@@ -37,27 +37,32 @@ public class OJH_BattlePlayer : MonoBehaviourPun
     // Start is called before the first frame update
     void Start()
     {
-        print("인식!");
         // cc = GetComponent<CharacterController>();
-        if (GameManager.instance.isVR == false)
+        if (photonView.IsMine)
         {
-            if (photonView.IsMine)
+            if (GameManager.instance.isVR == false)
             {
                 anim = pcMyAnim;
+                state = PcPlayerState.Idle;
             }
-            else
+            // vr 애니메이션
+        }
+        else
+        {
+            if (GameManager.instance.isVR == false)
             {
                 anim = pcOtherAnim;
+                state = PcPlayerState.Idle;
             }
-            state = PcPlayerState.Idle;
+            // VR 애니메이션
         }
         
-        if (GameManager.instance.isVR)
-        {
-            // 손 애니메이션
-            //anim = pcanim;
-            //state = PcPlayerState.Idle;
-        }
+        //if (GameManager.instance.isVR)
+        //{
+        //    // 손 애니메이션
+        //    //anim = pcanim;
+        //    //state = PcPlayerState.Idle;
+        //}
 
     }
 
@@ -131,7 +136,7 @@ public class OJH_BattlePlayer : MonoBehaviourPun
         if (cc.isGrounded)
         {
             jumpCnt = 0;
-            yVelocity = 0;
+            //yVelocity = 0;
         }
 
         if (Input.GetButtonDown("Jump") && jumpTime == 0)
@@ -146,7 +151,7 @@ public class OJH_BattlePlayer : MonoBehaviourPun
 
         if (cc.isGrounded == false)
         {
-            yVelocity += gravity * Time.deltaTime;
+            yVelocity += gravity * 2/3 * Time.deltaTime;
             dir.y = yVelocity;
         }
 
