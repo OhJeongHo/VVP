@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public float GameTime = 180;
+    public Text GameTimeText;
+    //시간담당
+
+
     public static GameManager instance;
     public GameObject playerRocket;
 
-    // public LobbyActive myplayer;
-    
     public bool isVR;
+
     public int rocketCnt;
 
     public static bool isPresent()
@@ -45,28 +50,39 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-      
+        RocketImg();
+
+        if ((int)GameTime == 0)
+        {
+        }
+        else
+        {
+            GameTime -= Time.deltaTime;
+            GameTimeText.text = "Time : " + (int)(GameTime/60)%60 + ":" + (int)(GameTime%60);
+
+            return;
+        }
     }
 
-    
-    public void RocketImg(int addValue)
+    void RocketImg()
     {
-        rocketCnt += addValue;
-
         if (rocketCnt == 0)
         {
-            if (playerRocket.GetComponent<MeshRenderer>().enabled == true)
-            {
-                playerRocket.GetComponent<MeshRenderer>().enabled = false; 
-            }
-            //myplayer.등짝붙은애 보여주는 함수호출
+            playerRocket.SetActive(false);
         }
         if (rocketCnt > 0)
         {
-            if (playerRocket.GetComponent<MeshRenderer>().enabled == false)
-            {
-                playerRocket.GetComponent<MeshRenderer>().enabled = true;
-            }
+            playerRocket.SetActive(true);
         }
+    }
+
+    public void OnPcClick()
+    {
+        SceneManager.LoadScene("OJH_LobbyScene");
+    }
+
+    public void OnVrClick()
+    {
+        SceneManager.LoadScene("OJH_LobbyScene");
     }
 }
