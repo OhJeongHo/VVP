@@ -22314,7 +22314,7 @@ GameObject:
   - component: {fileID: 847205633}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22343,7 +22343,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 847205629}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -26742,8 +26742,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3799655c1642b64eb01aff158ee938b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateVector: {x: 0, y: 0, z: 180}
-  rotateSpace: 0
 --- !u!199 &1321541689
 ParticleSystemRenderer:
   serializedVersion: 6
