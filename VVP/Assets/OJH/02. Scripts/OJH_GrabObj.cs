@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class OJH_GrabObj : MonoBehaviour
 {
-    private Animator _anim;
-
     LineRenderer lr;
 
     // 잡은 놈의 트랜스폼
@@ -24,7 +22,6 @@ public class OJH_GrabObj : MonoBehaviour
     void Start()
     {
         lr = GetComponent<LineRenderer>();
-        _anim = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -55,6 +52,7 @@ public class OJH_GrabObj : MonoBehaviour
     void CatchObj()
     {
 
+<<<<<<< HEAD
         int layerMask = 1 << 6;
         int layer2 = 1 << 8;
 
@@ -67,28 +65,18 @@ public class OJH_GrabObj : MonoBehaviour
         }
 
         if(OVRInput.GetDown(OVRInput.Button.Any, OVRInput.Controller.RTouch))
+=======
+        if(OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.RTouch))
+>>>>>>> parent of c4dafcbd (Merge branch 'JMWW' into main)
         { 
-            Collider [] hits = Physics.OverlapSphere(transform.position, 0.3f, layerMask);
-
-            _anim.SetBool("IsGrabbing", true);
-            //if (!_anim.GetBool("IsGrabbing"))
-            //{
-               
-            //}
-            //else
-            //{                
-            //    if (_anim.GetBool("IsGrabbing"))
-            //    {
-            //        _anim.SetBool("IsGrabbing", false);
-            //    }
-            //}
+            Collider [] hits = Physics.OverlapSphere(transform.position, 0.3f);
 
             //Ray ray = new Ray(transform.position, transform.forward);
             //// 반지름이 r인 구모양을 발사한다
             //RaycastHit hit;
             //if(Physics.SphereCast(ray, 0.5f, out hit, 100))
 
-            if (hits.Length > 0) // 위의 주석처리를 사용하려면 hit로 사용하면 되고, 이걸 쓰려면 hits[0]으로
+            if(hits.Length > 0) // 위의 주석처리를 사용하려면 hit로 사용하면 되고, 이걸 쓰려면 hits[0]으로
             {
                 // 잡은 놈 저장
                 catchedObj = hits[0].transform;
@@ -124,11 +112,6 @@ public class OJH_GrabObj : MonoBehaviour
         // 오른손 B 버튼을 떼면
         if (OVRInput.GetUp(OVRInput.Button.Any, OVRInput.Controller.RTouch))
         {
-
-            if (_anim.GetBool("IsGrabbing"))
-            {
-                _anim.SetBool("IsGrabbing", false);
-            }
             // 잡고 있는 오브젝트의 부모를 null로
             catchedObj.SetParent(null);
             // 잡고있는 오브젝트 -> 리기드바디 -> 이즈키네메틱을 false로
