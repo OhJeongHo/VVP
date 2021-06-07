@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class LaserTurret : MonoBehaviour
 {
+    public bool tankControl;
+
+    
 
     public Transform FirePoss;
 
@@ -31,6 +34,9 @@ public class LaserTurret : MonoBehaviour
 
     void Update()
     {
+
+        //GameObject c = gamebject.GetComponent<Camera>();
+
         float mx = Input.GetAxis("Mouse X");
         float my = Input.GetAxis("Mouse Y");
 

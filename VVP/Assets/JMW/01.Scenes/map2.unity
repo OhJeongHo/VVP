@@ -13933,6 +13933,51 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 437965315}
   m_Mesh: {fileID: 4300012, guid: a8677810116375a47866f8e10fbf922d, type: 3}
+--- !u!1 &449452965
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 449452967}
+  - component: {fileID: 449452966}
+  m_Layer: 0
+  m_Name: TimeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &449452966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449452965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11a9c9bf1cbd3454ebfe9069427d6636, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameTime: 180
+  GameTimeText: {fileID: 1968005772}
+--- !u!4 &449452967
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449452965}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 40.872288, y: 0.020925045, z: -47.534424}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 40
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &453943375
 GameObject:
   m_ObjectHideFlags: 0
@@ -22314,7 +22359,7 @@ GameObject:
   - component: {fileID: 847205633}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22391,6 +22436,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c95fec369edc7b146beb8fd97fb15017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tankControl: 0
   FirePoss: {fileID: 1254096109}
   bulletFactory: {fileID: 2532850428631612969, guid: 5d9c437b9085dbc48bd213681fd16281, type: 3}
   layerMask:
@@ -32578,8 +32624,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8433a4f2648ae44e94664b903143a55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameTime: 180
-  GameTimeText: {fileID: 1968005772}
   playerRocket: {fileID: 1882386177}
   isVR: 0
   rocketCnt: 0
