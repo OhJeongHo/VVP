@@ -80,6 +80,7 @@ public class OJH_NetPlayer : MonoBehaviourPun, IPunObservable
         {
             print("vr로 레이어변경");
             this.gameObject.layer = 8;
+            this.gameObject.tag = "VRPlayer";
         }
         else
         {
