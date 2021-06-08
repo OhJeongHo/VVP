@@ -24,7 +24,7 @@ public class NetPlayerMove : MonoBehaviourPun
     float currTime;
 
     PcPlayerState state;
-    Animator anim;
+    public Animator anim;
 
 
     // Start is called before the first frame update

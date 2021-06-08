@@ -56,9 +56,12 @@ public class OJH_GrabObj : MonoBehaviour
     {
 
         int layerMask = 1 << 6;
+        int layer = 1 << 7;
         int layer2 = 1 << 8;
+        int layer3 = 1 << 12;
 
-        layerMask = ~(layerMask | layer2);
+
+        layerMask = ~(layerMask | layer2 | layer | layer3);
 
         if(OVRInput.GetUp(OVRInput.Button.Any, OVRInput.Controller.RTouch))
         {

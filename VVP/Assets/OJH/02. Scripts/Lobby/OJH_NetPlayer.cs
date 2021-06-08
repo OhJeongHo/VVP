@@ -121,6 +121,12 @@ public class OJH_NetPlayer : MonoBehaviourPun, IPunObservable
             }
         }
         #endregion
-    }
 
+
+        //OJH_BattlePlayer bp = GetComponent<OJH_BattlePlayer>();
+        //if(bp)
+        //{
+        //    bp.Init();
+        //}
+    }
 }

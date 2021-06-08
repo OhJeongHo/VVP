@@ -15,8 +15,6 @@ public class OJH_BattlePlayer : MonoBehaviourPun
     }
 
     public Camera pccam;
-    public Animator pcMyAnim;
-    public Animator pcOtherAnim;
     public bool rocketMode = false;
     public bool sternMode = false;
     Vector3 dir;
@@ -31,31 +29,14 @@ public class OJH_BattlePlayer : MonoBehaviourPun
     float currTime;
 
     PcPlayerState state;
-    Animator anim;
+    public Animator anim;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        // cc = GetComponent<CharacterController>();
-        if (photonView.IsMine)
-        {
-            if (GameManager.instance.isVR == false)
-            {
-                anim = pcMyAnim;
-                state = PcPlayerState.Idle;
-            }
-            // vr 애니메이션
-        }
-        else
-        {
-            if (GameManager.instance.isVR == false)
-            {
-                anim = pcOtherAnim;
-                state = PcPlayerState.Idle;
-            }
-            // VR 애니메이션
-        }
+        anim = GetComponentInChildren<Animator>();
+        state = PcPlayerState.Idle;
         
         //if (GameManager.instance.isVR)
         //{
@@ -65,6 +46,11 @@ public class OJH_BattlePlayer : MonoBehaviourPun
         //}
 
     }
+
+    //public void Init()
+    //{
+    //    anim = GetComponentInChildren<Animator>();
+    //}
 
     // Update is called once per frame
     void Update()
@@ -76,6 +62,11 @@ public class OJH_BattlePlayer : MonoBehaviourPun
             VrPlayerMove();
         }
 
+        if (sternMode)
+        {
+            photonView.RPC("AniTrigger", RpcTarget.All, "Stern");
+            return;
+        }
         if (GameManager.instance.isVR == false)
         {
             switch (state)
@@ -93,7 +84,7 @@ public class OJH_BattlePlayer : MonoBehaviourPun
                     Fly();
                     break;
                 case PcPlayerState.Stern:
-                    Jump();
+                    
                     break;
                 default:
                     break;
@@ -183,7 +174,6 @@ public class OJH_BattlePlayer : MonoBehaviourPun
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 rocketMode = true;
-
                 currTime += Time.deltaTime;
                 // 로켓 부스터 이팩트 넣어야함.
                 if (currTime >= 5)
@@ -195,6 +185,7 @@ public class OJH_BattlePlayer : MonoBehaviourPun
 
             if (Input.GetKeyUp(KeyCode.LeftShift))
             {
+                yVelocity = 0;
                 rocketMode = false;
             }
         }
@@ -292,9 +283,12 @@ public class OJH_BattlePlayer : MonoBehaviourPun
 
     private void OnTriggerEnter(Collider other)
     {
-        // VR과 충돌
-        if (other.gameObject.layer == 7)
+        // 내가 PC인데 VR과 충돌
+        if (GameManager.instance.isVR == false && other.gameObject.layer == 8)
         {
+            // 캐릭터컨트롤러 끄고 리기드바이의 이즈키네메틱 꺼버림
+            gameObject.GetComponent<CharacterController>().enabled = false;
+            gameObject.GetComponent<Rigidbody>().isKinematic = false;
             sternMode = true;
         }
     }
@@ -306,6 +300,19 @@ public class OJH_BattlePlayer : MonoBehaviourPun
             // 벨로시티 값이 작으면 곧장 sternMode 해제
             // 벨로시티 값이 크면 1초 후에 sternMode 해제
         }
+    }
+
+    public void SternReset2()
+    {
+        StartCoroutine(SternReset());
+    }
+    IEnumerator SternReset()
+    {
+        yield return new WaitForSeconds(1);
+        sternMode = false;
+        gameObject.GetComponent<CharacterController>().enabled = true;
+        gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        photonView.RPC("AniTrigger", RpcTarget.All, "Idle");
     }
 
     [PunRPC]
