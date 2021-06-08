@@ -21,7 +21,7 @@ public class OJH_Boom : MonoBehaviour
         // colls = Physics.OverlapSphere(transform.position, 2f);
         foreach (Collider coll in colls)
         {
-            if (coll.GetComponent<OJH_BattlePlayer>() != null)
+            if (coll.gameObject.layer == 11)
             {
                 coll.GetComponent<CharacterController>().enabled = false;
                 coll.GetComponent<Rigidbody>().isKinematic = false;
