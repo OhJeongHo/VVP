@@ -180,6 +180,7 @@ public class OJH_BattlePlayer : MonoBehaviourPun
                 {
                     GameManager.instance.RocketImg(-1);
                     rocketMode = false;
+                    currTime = 0;
                 }
             }
 

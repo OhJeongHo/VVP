@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
 
     public void RocketImg(int addValue)
     {
+        
         rocketCnt += addValue;
 
         if (rocketCnt == 0)
