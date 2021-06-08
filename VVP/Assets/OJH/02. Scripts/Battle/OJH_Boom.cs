@@ -18,6 +18,7 @@ public class OJH_Boom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.instance.isVR) return;
         // colls = Physics.OverlapSphere(transform.position, 2f);
         foreach (Collider coll in colls)
         {
