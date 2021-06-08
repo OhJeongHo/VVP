@@ -8,16 +8,21 @@ public class OJH_Boom : MonoBehaviour
     // public Rigidbody[] rbs;
     // Start is called before the first frame update
     Collider[] colls;
+    bool b;
     void Start()
     {
         // rb.AddExplosionForce(10f, transform.position, 0.5f);
         colls = Physics.OverlapSphere(transform.position, 2f);
+        b = true;
     }
 
 
     // Update is called once per frame
     void Update()
     {
+        if (b == false) return;
+        b = false;
+
         if (GameManager.instance.isVR) return;
         // colls = Physics.OverlapSphere(transform.position, 2f);
         foreach (Collider coll in colls)
@@ -26,7 +31,7 @@ public class OJH_Boom : MonoBehaviour
             {
                 coll.GetComponent<CharacterController>().enabled = false;
                 coll.GetComponent<Rigidbody>().isKinematic = false;
-                coll.attachedRigidbody.AddExplosionForce(1000f, transform.position, 2f, 1f);
+                coll.GetComponent<Rigidbody>().AddExplosionForce(1000f, transform.position, 2f, 1f);
                 // 수정 부분
                 if (coll.GetComponent<OJH_BattlePlayer>().rocketMode == true)
                 {
