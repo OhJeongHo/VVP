@@ -4351,6 +4351,7 @@ MonoBehaviour:
   jumpCnt: 0
   maxjumpCnt: 1
   jumpPower: 2
+  anim: {fileID: 0}
 --- !u!114 &5672482155208723680
 MonoBehaviour:
   m_ObjectHideFlags: 0

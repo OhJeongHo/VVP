@@ -20,6 +20,8 @@ public class OJH_ObjRotate : MonoBehaviour
     void Start()
     {
         photonview = GetComponentInParent<PhotonView>();
+        rotX = transform.transform.localEulerAngles.x;
+        rotY = transform.transform.localEulerAngles.y;
     }
 
     // Update is called once per frame
