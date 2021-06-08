@@ -8,34 +8,66 @@ public class OJH_Boom : MonoBehaviour
     // public Rigidbody[] rbs;
     // Start is called before the first frame update
     Collider[] colls;
+    bool b;
     void Start()
     {
         // rb.AddExplosionForce(10f, transform.position, 0.5f);
-        colls = Physics.OverlapSphere(transform.position, 1f);
-
-        
+        colls = Physics.OverlapSphere(transform.position, 2f);
+        b = true;
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (b == false) return;
+        b = false;
+
+        if (GameManager.instance.isVR) return;
+        // colls = Physics.OverlapSphere(transform.position, 2f);
+        foreach (Collider coll in colls)
         {
-            foreach (Collider coll in colls)
+            if (coll.gameObject.layer == 11)
             {
-                if (coll.GetComponent<CharacterController>() != null)
+                coll.GetComponent<CharacterController>().enabled = false;
+                coll.GetComponent<Rigidbody>().isKinematic = false;
+                coll.GetComponent<Rigidbody>().AddExplosionForce(1000f, transform.position, 2f, 1f);
+                // 수정 부분
+                if (coll.GetComponent<OJH_BattlePlayer>().rocketMode == true)
                 {
-                    print("cc 존재");
-                    coll.GetComponent<CharacterController>().enabled = false;
-                    coll.GetComponent<Rigidbody>().isKinematic = false;
+                    coll.GetComponent<OJH_BattlePlayer>().rocketMode = false;
                 }
-                if (coll.attachedRigidbody != null)
+                if (coll.GetComponent<OJH_BattlePlayer>().sternMode == false)
                 {
-                    coll.attachedRigidbody.AddExplosionForce(100f, transform.position, 2f, 1f);
+                    coll.GetComponent<OJH_BattlePlayer>().sternMode = true;
+                    coll.GetComponent<OJH_BattlePlayer>().SternReset2();
                 }
-                
             }
+            
+            //if (coll.GetComponent<CharacterController>() != null)
+            //{
+            //    print("cc가 존재!");
+            //    // 해당 오브젝트의 cc는 끄고, 리기드바디의 isKinematic도 꺼준다
+            //    coll.GetComponent<CharacterController>().enabled = false;
+            //    coll.GetComponent<Rigidbody>().isKinematic = false;
+            //}
+            //if (coll.attachedRigidbody != null)
+            //{
+            //    print("리기드바디 존재!");
+            //    // 폭발시킴
+            //    coll.attachedRigidbody.AddExplosionForce(1000f, transform.position, 2f, 1f);
+            //    if (coll.GetComponent<OJH_BattlePlayer>() != null)
+            //    {
+            //        if (coll.GetComponent<OJH_BattlePlayer>().sternMode == false)
+            //        {
+            //            coll.GetComponent<OJH_BattlePlayer>().sternMode = true;
+            //            coll.GetComponent<OJH_BattlePlayer>().SternReset2();
+            //        }
+
+            //    }
+            //}
+
         }
+        
     }
 }

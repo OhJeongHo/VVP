@@ -18,7 +18,7 @@ public class ringOut : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        LobbyActiveJMW pm = other.gameObject.GetComponent<LobbyActiveJMW>();
+        OJH_BattlePlayer pm = other.gameObject.GetComponent<OJH_BattlePlayer>();
         if(pm)
         {
             pm.enabled = false;
@@ -30,7 +30,7 @@ public class ringOut : MonoBehaviour
         StartCoroutine(Delay(pm));
     }
 
-    IEnumerator Delay(LobbyActiveJMW pm)
+    IEnumerator Delay(OJH_BattlePlayer pm)
     {
         yield return new WaitForSeconds(0.1f);
         pm.enabled = true;

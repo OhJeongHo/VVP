@@ -76,6 +76,17 @@ public class OJH_NetPlayer : MonoBehaviourPun, IPunObservable
             isVR = GameManager.instance.isVR;
             photonView.RPC("SendIsVR", RpcTarget.AllBuffered, isVR);
         }
+        if (isVR)
+        {
+            print("vr로 레이어변경");
+            this.gameObject.layer = 8;
+            this.gameObject.tag = "VRPlayer";
+        }
+        else
+        {
+            print("pc로 레이어변경");
+            this.gameObject.layer = 11;
+        }
     }
 
     // Update is called once per frame
@@ -121,6 +132,12 @@ public class OJH_NetPlayer : MonoBehaviourPun, IPunObservable
             }
         }
         #endregion
-    }
 
+
+        //OJH_BattlePlayer bp = GetComponent<OJH_BattlePlayer>();
+        //if(bp)
+        //{
+        //    bp.Init();
+        //}
+    }
 }

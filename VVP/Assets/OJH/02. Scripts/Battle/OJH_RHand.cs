@@ -26,8 +26,8 @@ public class OJH_RHand : MonoBehaviour
     {
         if (OVRInput.Get(OVRInput.Button.Any, OVRInput.Controller.RTouch))
         {
-            GameObject rocks = Instantiate(rock);
-            rocks.transform.position = transform.position;
+            GameObject rocks = PhotonNetwork.Instantiate("Rock", transform.position, Quaternion.identity);
+            //rocks.transform.position = transform.position;
         }
     }
     private void OnTriggerEnter(Collider other)
