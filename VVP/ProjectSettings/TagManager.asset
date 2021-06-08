@@ -11,6 +11,7 @@ TagManager:
   - Castle
   - Tank
   - LBalpan
+  - VRPlayer
   layers:
   - Default
   - TransparentFX

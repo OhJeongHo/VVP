@@ -14,7 +14,7 @@ public class TowerTrigger : MonoBehaviour {
         if ((other.CompareTag("enemyBug") || other.CompareTag("Tank"))) {
             if (lockE == false)
             {
-                twr.target = other.gameObject.transform;
+                twr.target = other.transform;
                 curTarget = other.gameObject;
                 lockE = true;
             }

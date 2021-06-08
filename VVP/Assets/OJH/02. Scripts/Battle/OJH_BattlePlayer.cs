@@ -127,7 +127,7 @@ public class OJH_BattlePlayer : MonoBehaviourPun
         if (cc.isGrounded)
         {
             jumpCnt = 0;
-            //yVelocity = 0;
+            yVelocity = 0;
         }
 
         if (Input.GetButtonDown("Jump") && jumpTime == 0)
@@ -283,14 +283,14 @@ public class OJH_BattlePlayer : MonoBehaviourPun
 
     private void OnTriggerEnter(Collider other)
     {
-        // 내가 PC인데 VR과 충돌
-        if (GameManager.instance.isVR == false && other.gameObject.layer == 8)
-        {
-            // 캐릭터컨트롤러 끄고 리기드바이의 이즈키네메틱 꺼버림
-            gameObject.GetComponent<CharacterController>().enabled = false;
-            gameObject.GetComponent<Rigidbody>().isKinematic = false;
-            sternMode = true;
-        }
+        //// 내가 PC인데 VR과 충돌
+        //if (GameManager.instance.isVR == false && other.gameObject.layer == 8)
+        //{
+        //    // 캐릭터컨트롤러 끄고 리기드바이의 이즈키네메틱 꺼버림
+        //    gameObject.GetComponent<CharacterController>().enabled = false;
+        //    gameObject.GetComponent<Rigidbody>().isKinematic = false;
+        //    sternMode = true;
+        //}
     }
     private void OnTriggerExit(Collider other)
     {

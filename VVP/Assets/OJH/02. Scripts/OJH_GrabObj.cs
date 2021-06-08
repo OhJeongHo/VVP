@@ -95,6 +95,15 @@ public class OJH_GrabObj : MonoBehaviour
             {
                 // 잡은 놈 저장
                 catchedObj = hits[0].transform;
+
+                if (catchedObj.GetComponent<OJH_BattlePlayer>() != null)
+                {
+                    catchedObj.GetComponent<CharacterController>().enabled = false;
+                    if (catchedObj.GetComponent<OJH_BattlePlayer>().sternMode == false)
+                    {
+                        catchedObj.GetComponent<OJH_BattlePlayer>().sternMode = true;
+                    }
+                }
                 // 부딪힌 놈을 오른속 자식으로 놓는다
                 hits[0].transform.SetParent(transform);
                 // 부딪힌 놈 물리연산이 되지 않도록
@@ -137,6 +146,12 @@ public class OJH_GrabObj : MonoBehaviour
             // 잡고있는 오브젝트 -> 리기드바디 -> 이즈키네메틱을 false로
             catchedObj.GetComponent<Rigidbody>().isKinematic = false;
 
+            if (catchedObj.GetComponent<OJH_BattlePlayer>() != null)
+            {
+                catchedObj.GetComponent<CharacterController>().enabled = true;
+                catchedObj.GetComponent<OJH_BattlePlayer>().SternReset2();
+            }
+
             // 던지자
             ThrowObj(transform.TransformDirection(OVRInput.GetLocalControllerVelocity(OVRInput.Controller.RTouch) * 3),
                 transform.TransformDirection(OVRInput.GetLocalControllerAngularVelocity(OVRInput.Controller.RTouch)));
@@ -168,4 +183,9 @@ public class OJH_GrabObj : MonoBehaviour
     //    // 각속도 셋팅
     //    rb.angularVelocity = OVRInput.GetLocalControllerAngularVelocity(OVRInput.Controller.RTouch);
     //}
+
+    private void OnTriggerEnter(Collider other)
+    {
+        
+    }
 }

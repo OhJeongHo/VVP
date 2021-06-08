@@ -22,7 +22,7 @@ public class OJH_Rocket : MonoBehaviourPun
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 7)
+        if (other.gameObject.layer == 11)
         {
             Destroy(gameObject);
             GameManager.instance.RocketImg(1);

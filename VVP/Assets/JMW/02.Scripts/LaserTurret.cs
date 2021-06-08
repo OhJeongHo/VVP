@@ -8,6 +8,7 @@ public class LaserTurret : MonoBehaviour
 
     GameObject par;
 
+    public Transform Tankpos;
     public LsSwitch lss;
 
     //Renderer BColor;
@@ -129,7 +130,7 @@ public class LaserTurret : MonoBehaviour
         Destroy(bullet, 3f);
         tankCtrl = false;
 
-        pcplayer.transform.position = new Vector3(1.19f, 1.67f, -49.83f);
+        pcplayer.transform.position = Tankpos.position;
         pcplayer.SetActive(true);
         //lss.GetComponent<LsSwitch>().BColor();
 

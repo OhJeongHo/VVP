@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class OJH_LHand : MonoBehaviour
 {
@@ -25,8 +26,7 @@ public class OJH_LHand : MonoBehaviour
     {
         if (OVRInput.Get(OVRInput.Button.Any, OVRInput.Controller.LTouch))
         {
-            GameObject rocks = Instantiate(rock);
-            rocks.transform.position = transform.position;
+            GameObject rocks = PhotonNetwork.Instantiate("Rock", transform.position, Quaternion.identity);
         }
     }
     private void OnTriggerEnter(Collider other)

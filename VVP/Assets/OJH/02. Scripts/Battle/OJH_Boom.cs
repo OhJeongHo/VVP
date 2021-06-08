@@ -26,6 +26,11 @@ public class OJH_Boom : MonoBehaviour
                 coll.GetComponent<CharacterController>().enabled = false;
                 coll.GetComponent<Rigidbody>().isKinematic = false;
                 coll.attachedRigidbody.AddExplosionForce(1000f, transform.position, 2f, 1f);
+                // 수정 부분
+                if (coll.GetComponent<OJH_BattlePlayer>().rocketMode == true)
+                {
+                    coll.GetComponent<OJH_BattlePlayer>().rocketMode = false;
+                }
                 if (coll.GetComponent<OJH_BattlePlayer>().sternMode == false)
                 {
                     coll.GetComponent<OJH_BattlePlayer>().sternMode = true;

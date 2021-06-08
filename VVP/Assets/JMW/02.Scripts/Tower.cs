@@ -36,6 +36,8 @@ public class Tower : MonoBehaviour {
         anim_2 = GetComponent<Animator>();
         homeY = LookAtObj.transform.localRotation.eulerAngles.y;
         //TowerHp = Towerbug.GetComponent<TowerHP>();
+
+        target = GameObject.FindWithTag("VRPlayer").transform;
     }
            
 
@@ -197,7 +199,7 @@ public class Tower : MonoBehaviour {
         if (target && Catcher == false)
         {
             GameObject b = GameObject.Instantiate(bullet, shootElement.position, Quaternion.identity) as GameObject;
-            b.GetComponent<TowerBullet>().target = target;
+            b.GetComponent<TowerBullet>().target = target.transform;
             b.GetComponent<TowerBullet>().twr = this;
           
         }
