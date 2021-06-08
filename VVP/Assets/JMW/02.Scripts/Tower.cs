@@ -37,7 +37,7 @@ public class Tower : MonoBehaviour {
         homeY = LookAtObj.transform.localRotation.eulerAngles.y;
         //TowerHp = Towerbug.GetComponent<TowerHP>();
 
-        target = GameObject.FindWithTag("VRPlayer").transform;
+       // target = GameObject.FindWithTag("VRPlayer").transform;
     }
            
 

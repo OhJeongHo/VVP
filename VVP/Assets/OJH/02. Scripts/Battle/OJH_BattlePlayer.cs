@@ -37,6 +37,11 @@ public class OJH_BattlePlayer : MonoBehaviourPun
     {
         anim = GetComponentInChildren<Animator>();
         state = PcPlayerState.Idle;
+
+        if(gameObject.layer == 8)
+        {
+            GameObject.Find("Tur1 (2)").GetComponentInChildren<Tower>().target = transform;
+        }
         
         //if (GameManager.instance.isVR)
         //{
