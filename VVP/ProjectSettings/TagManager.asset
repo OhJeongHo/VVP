@@ -10,6 +10,7 @@ TagManager:
   - Wall
   - Castle
   - Tank
+  - LBalpan
   layers:
   - Default
   - TransparentFX
@@ -22,9 +23,9 @@ TagManager:
   - VRPlayer
   - Wall
   - Potan
-  - 
-  - 
-  - 
+  - PCPlayer
+  - VRHand
+  - Rock
   - 
   - 
   - 

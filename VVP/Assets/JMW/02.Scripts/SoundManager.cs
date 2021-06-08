@@ -5,9 +5,9 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     public AudioSource audioSource;
-    //public AudioClip audioClipPong;
     public AudioClip gameBG;
-    //public AudioClip rankingBG;
+    public AudioClip LaserChager;
+    public AudioClip LaserShot;
     //public AudioClip audioClipApplause;
     //public AudioClip potion;
     //public AudioClip finish;
@@ -27,17 +27,17 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    //public void PlayPong()
-    //{
-    //    audioSource.PlayOneShot(audioClipPong);
-
-
-
-    //}
-
-    public void GameBGM()
+    public void LaserChagerr()
     {
-        audioSource.PlayOneShot(gameBG);
+        audioSource.PlayOneShot(LaserChager);
+
+
+
+    }
+
+    public void LaserShott()
+    {
+        audioSource.PlayOneShot(LaserShot);
 
 
 

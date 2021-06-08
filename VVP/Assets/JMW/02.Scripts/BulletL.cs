@@ -14,6 +14,7 @@ public class BulletL : MonoBehaviour
     
     void Update()
     {
+        gameObject.transform.parent = null;
         transform.position += transform.up * bulletSpeed * Time.deltaTime;
     }
 }

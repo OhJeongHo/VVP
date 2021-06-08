@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class LobbyActiveJMW : MonoBehaviour
 {
+    //public LaserTurret Lt;
+
+    public bool PlayerCtrl;
+    GameObject pcCam;
+
     enum PcPlayerState
     {
         Idle,
@@ -92,6 +97,14 @@ public class LobbyActiveJMW : MonoBehaviour
             Flying();
             // RocketTest();
         }
+
+        if (PlayerCtrl == true)
+        {
+            PcPlayerMove();
+            Camera pcCam = GetComponent<Camera>();
+            pcCam.enabled = true;
+            
+        }
     }
 
     void RocketTest()
@@ -133,12 +146,13 @@ public class LobbyActiveJMW : MonoBehaviour
 
     void PcPlayerMove()
     {
-        if(rocketMode == true)
+        
+        if (rocketMode == true)
         {
             return;
         }
 
-
+        
 
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
@@ -294,22 +308,15 @@ public class LobbyActiveJMW : MonoBehaviour
         }
     }
 
+    //public void ff()
+    //{
+    //    PlayerCtrl = false;
+    //}
+
 
     private void OnTriggerEnter(Collider other)
     {
-        // VR과 충돌
-        if (other.gameObject.layer == 7)
-        {
-            sternMode = true;
-        }
+        
     }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.layer == 7)
-        {
-            // 벨로시티를 사용해서
-            // 벨로시티 값이 작으면 곧장 sternMode 해제
-            // 벨로시티 값이 크면 1초 후에 sternMode 해제
-        }
-    }
+   
 }
