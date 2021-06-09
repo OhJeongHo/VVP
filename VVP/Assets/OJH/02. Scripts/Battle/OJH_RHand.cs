@@ -6,10 +6,14 @@ using Photon.Pun;
 public class OJH_RHand : MonoBehaviour
 {
     public GameObject handModel;
+    public GameObject leftHand;
     public GameObject rock;
     Quaternion rot;
     Vector3 pos;
 
+    bool clap;
+    float currTime;
+    float setTime = 10;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,11 +24,19 @@ public class OJH_RHand : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (clap == false)
+        {
+            currTime += Time.deltaTime;
+            if (currTime >= setTime)
+            {
+                clap = true;
+                currTime = 0;
+            }
+        }
     }
     void Rock()
     {
-        if (OVRInput.Get(OVRInput.Button.Any, OVRInput.Controller.RTouch))
+        if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch))
         {
             GameObject rocks = PhotonNetwork.Instantiate("Rock", transform.position, Quaternion.identity);
             //rocks.transform.position = transform.position;
@@ -36,6 +48,15 @@ public class OJH_RHand : MonoBehaviour
         {
             handModel.transform.parent = null;
             Rock();
+        }
+        if (other.gameObject == leftHand)
+        {
+            print("¹Ú¼ö");
+            if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch))
+            {
+                clap = false;
+                GameObject Clap = PhotonNetwork.Instantiate("ClapBoom", transform.position, Quaternion.identity);
+            }
         }
     }
     private void OnTriggerStay(Collider other)

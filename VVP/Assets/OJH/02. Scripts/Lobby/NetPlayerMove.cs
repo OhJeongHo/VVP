@@ -90,7 +90,7 @@ public class NetPlayerMove : MonoBehaviourPun
         Vector2 joyStickR = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch);
         if(joyStickR.magnitude > 0)
         {
-            print(joyStickR.x + ",  " + joyStickR.y);
+            //print(joyStickR.x + ",  " + joyStickR.y);
         }
         transform.Rotate(0, joyStickR.x * 70 * Time.deltaTime, 0);
     }

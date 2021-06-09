@@ -15,8 +15,12 @@ public class OJH_BattlePlayer : MonoBehaviourPun
     }
 
     public Camera pccam;
+    public GameObject playerRocket;
+    public GameObject otherRocket;
+
     public bool rocketMode = false;
     public bool sternMode = false;
+
     Vector3 dir;
     public CharacterController cc;
     float yVelocity;
@@ -61,7 +65,10 @@ public class OJH_BattlePlayer : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        if (photonView.IsMine == false) return;
+        if (photonView.IsMine == false)
+        {
+            return;
+        }
 
         if (GameManager.instance.isVR)
         {
@@ -184,7 +191,8 @@ public class OJH_BattlePlayer : MonoBehaviourPun
                 // 로켓 부스터 이팩트 넣어야함.
                 if (currTime >= 5)
                 {
-                    GameManager.instance.RocketImg(-1);
+                    GameManager.instance.RocketCount(-1);
+                    photonView.RPC("MyRocketImg", RpcTarget.All);
                     rocketMode = false;
                     currTime = 0;
                 }
@@ -197,6 +205,28 @@ public class OJH_BattlePlayer : MonoBehaviourPun
             }
         }
 
+    }
+
+    [PunRPC]
+    public void MyRocketImg()
+    {
+        if (photonView.IsMine)
+        {
+            if (GameManager.instance.rocketCnt == 0)
+            {
+                if (playerRocket.GetComponent<MeshRenderer>().enabled == true)
+                {
+                    playerRocket.GetComponent<MeshRenderer>().enabled = false;
+                }
+            }
+            if (GameManager.instance.rocketCnt > 0)
+            {
+                if (playerRocket.GetComponent<MeshRenderer>().enabled == false)
+                {
+                    playerRocket.GetComponent<MeshRenderer>().enabled = true;
+                }
+            }
+        }
     }
     void Idle()
     {
@@ -290,6 +320,22 @@ public class OJH_BattlePlayer : MonoBehaviourPun
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.layer == 14)
+        {
+            Destroy(other.gameObject);
+            // 내가 먹었을 경우에만 로켓숫자를 늘려라
+            if (photonView.IsMine)
+            {
+                print("내가 먹음");
+                GameManager.instance.RocketCount(1);
+                photonView.RPC("MyRocketImg", RpcTarget.All);
+            }
+            //if (!photonView.IsMine)
+            //{
+            //    print("남이 먹음");
+            //    GameManager.instance.OtherRocketImg(1);
+            //}
+        }
         //// 내가 PC인데 VR과 충돌
         //if (GameManager.instance.isVR == false && other.gameObject.layer == 8)
         //{

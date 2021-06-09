@@ -187,7 +187,7 @@ public class LobbyActive : MonoBehaviour
                 // 로켓 부스터 이팩트 넣어야함.
                 if (currTime >= 5)
                 {
-                    GameManager.instance.RocketImg(-1);
+                    GameManager.instance.RocketCount(-1);
                     rocketMode = false;
                 }
             }

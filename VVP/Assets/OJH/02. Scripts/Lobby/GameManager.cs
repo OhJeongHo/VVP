@@ -3,18 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR;
+using Photon.Pun;
 
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPun
 {
-    
-
-
     public static GameManager instance;
-    public GameObject playerRocket;
+    
 
     // public LobbyActive myplayer;
-    
+
     public bool isVR;
     public int rocketCnt;
 
@@ -49,30 +47,34 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-       
+
 
     }
 
 
-    public void RocketImg(int addValue)
+    public void RocketCount(int addValue)
     {
-        
         rocketCnt += addValue;
-
-        if (rocketCnt == 0)
-        {
-            if (playerRocket.GetComponent<MeshRenderer>().enabled == true)
-            {
-                playerRocket.GetComponent<MeshRenderer>().enabled = false; 
-            }
-            //myplayer.등짝붙은애 보여주는 함수호출
-        }
-        if (rocketCnt > 0)
-        {
-            if (playerRocket.GetComponent<MeshRenderer>().enabled == false)
-            {
-                playerRocket.GetComponent<MeshRenderer>().enabled = true;
-            }
-        }
     }
+
+    
+    //public void OtherRocketImg(int addvalue)
+    //{
+    //    otherRocketCnt += addvalue;
+    //    if (otherRocketCnt == 0)
+    //    {
+    //        if (otherRocket.GetComponent<MeshRenderer>().enabled == true)
+    //        {
+    //            otherRocket.GetComponent<MeshRenderer>().enabled = false;
+    //        }
+    //    }
+    //    if (otherRocketCnt > 0)
+    //    {
+    //        if (otherRocket.GetComponent<MeshRenderer>().enabled == false)
+    //        {
+    //            otherRocket.GetComponent<MeshRenderer>().enabled = true;
+    //        }
+    //    }
+    //}
 }
+

@@ -3274,7 +3274,7 @@ GameObject:
   - component: {fileID: 247706507}
   - component: {fileID: 247706506}
   - component: {fileID: 247706505}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Rocket14_Red (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4209,7 +4209,7 @@ GameObject:
   - component: {fileID: 333195412}
   - component: {fileID: 333195411}
   - component: {fileID: 333195410}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Rocket14_Red (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5527,7 +5527,7 @@ GameObject:
   - component: {fileID: 438122866}
   - component: {fileID: 438122865}
   - component: {fileID: 438122864}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Rocket14_Red (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8128,7 +8128,7 @@ GameObject:
   - component: {fileID: 634303682}
   - component: {fileID: 634303681}
   - component: {fileID: 634303680}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Rocket14_Red (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15578,7 +15578,7 @@ GameObject:
   - component: {fileID: 1467064575}
   - component: {fileID: 1467064574}
   - component: {fileID: 1467064573}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Rocket14_Red (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16607,7 +16607,7 @@ GameObject:
   - component: {fileID: 1552282585}
   - component: {fileID: 1552282584}
   - component: {fileID: 1552282583}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Rocket14_Red (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18364,7 +18364,7 @@ GameObject:
   - component: {fileID: 1724692505}
   - component: {fileID: 1724692504}
   - component: {fileID: 1724692503}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Rocket14_Red (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21992,7 +21992,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8433a4f2648ae44e94664b903143a55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRocket: {fileID: 0}
   isVR: 0
   rocketCnt: 0
 --- !u!4 &2103425268
@@ -22421,7 +22420,7 @@ GameObject:
   - component: {fileID: 23292915090623976}
   - component: {fileID: 1604881513}
   - component: {fileID: 1604881512}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Rocket14_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}

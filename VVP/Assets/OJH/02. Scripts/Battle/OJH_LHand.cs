@@ -24,7 +24,7 @@ public class OJH_LHand : MonoBehaviour
     }
     void Rock()
     {
-        if (OVRInput.Get(OVRInput.Button.Any, OVRInput.Controller.LTouch))
+        if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
         {
             GameObject rocks = PhotonNetwork.Instantiate("Rock", transform.position, Quaternion.identity);
         }

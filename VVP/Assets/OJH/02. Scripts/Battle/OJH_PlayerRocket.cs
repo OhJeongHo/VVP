@@ -15,7 +15,7 @@ public class OJH_PlayerRocket : MonoBehaviour
     void Start()
     {
         cc = player.GetComponent<CharacterController>();
-        GameManager.instance.playerRocket = gameObject;
+        // GameManager.instance.playerRocket = gameObject;
     }
 
     // Update is called once per frame
@@ -23,8 +23,6 @@ public class OJH_PlayerRocket : MonoBehaviour
     {
         RocketMove();
     }
-
-    
 
     void RocketMove()
     {

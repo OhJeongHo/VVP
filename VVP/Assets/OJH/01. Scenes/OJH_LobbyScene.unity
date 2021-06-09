@@ -20218,9 +20218,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8433a4f2648ae44e94664b903143a55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRocket: {fileID: 0}
   isVR: 0
   rocketCnt: 0
+  otherRocketCnt: 0
 --- !u!1001 &2119188059
 PrefabInstance:
   m_ObjectHideFlags: 0
