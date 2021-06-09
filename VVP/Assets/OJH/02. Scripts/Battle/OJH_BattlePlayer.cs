@@ -31,6 +31,7 @@ public class OJH_BattlePlayer : MonoBehaviourPun
     PcPlayerState state;
     public Animator anim;
 
+    public GameObject Mask;
 
     // Start is called before the first frame update
     void Start()
@@ -40,7 +41,7 @@ public class OJH_BattlePlayer : MonoBehaviourPun
 
         if(gameObject.layer == 8)
         {
-            GameObject.Find("Tur1 (2)").GetComponentInChildren<Tower>().target = transform;
+            GameObject.Find("Tur1 (2)").GetComponentInChildren<Tower>().target = Mask.transform;
         }
         
         //if (GameManager.instance.isVR)
