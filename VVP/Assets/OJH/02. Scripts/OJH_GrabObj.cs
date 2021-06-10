@@ -63,13 +63,13 @@ public class OJH_GrabObj : MonoBehaviour
 
         layerMask = ~(layerMask | layer2 | layer | layer3);
 
-        if(OVRInput.GetUp(OVRInput.Button.Any, OVRInput.Controller.RTouch))
+        if(OVRInput.GetUp(OVRInput.Button.One, OVRInput.Controller.RTouch))
         {
             
             _anim.SetBool("IsGrabbing", false);
         }
 
-        if(OVRInput.GetDown(OVRInput.Button.Any, OVRInput.Controller.RTouch))
+        if(OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.RTouch))
         { 
             Collider [] hits = Physics.OverlapSphere(transform.position, 0.7f, layerMask);
 
@@ -134,7 +134,7 @@ public class OJH_GrabObj : MonoBehaviour
             return;
         }
         // 오른손 B 버튼을 떼면
-        if (OVRInput.GetUp(OVRInput.Button.Any, OVRInput.Controller.RTouch))
+        if (OVRInput.GetUp(OVRInput.Button.One, OVRInput.Controller.RTouch))
         {
 
             if (_anim.GetBool("IsGrabbing"))

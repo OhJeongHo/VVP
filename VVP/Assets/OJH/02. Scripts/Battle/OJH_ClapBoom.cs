@@ -21,7 +21,7 @@ public class OJH_ClapBoom : MonoBehaviour
                 Vector3 dir = transform.position - coll.transform.position;
                 dir.Normalize();
 
-                coll.GetComponent<Rigidbody>().AddExplosionForce(1000f, transform.position, 20f, 1f);
+                coll.GetComponent<Rigidbody>().AddExplosionForce(1000f, transform.position, 20f, 2f);
                 // 수정 부분
                 if (coll.GetComponent<OJH_BattlePlayer>().rocketMode == true)
                 {

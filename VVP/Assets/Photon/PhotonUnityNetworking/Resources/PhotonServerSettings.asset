@@ -40,9 +40,10 @@ MonoBehaviour:
   - Fire
   - MyRocketImg
   - RespawnSpaceship
-  - SendIsVR
-  - RpcTurretMove
   - RpcTankCt
+  - RpcTurretMove
+  - SendIsVR
+  - RpcVrRay
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

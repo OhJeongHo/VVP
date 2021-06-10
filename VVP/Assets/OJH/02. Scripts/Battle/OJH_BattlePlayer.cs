@@ -18,7 +18,8 @@ public class OJH_BattlePlayer : MonoBehaviourPun
     public GameObject playerRocket;
     public GameObject otherRocket;
     public GameObject raypoint;
-    public GameObject rayBoom;
+    public RaycastHit rayBoomPoint;
+    bool rayTrigger;
 
     LineRenderer lr;
 
@@ -128,43 +129,68 @@ public class OJH_BattlePlayer : MonoBehaviourPun
 
     void VrPlayerMove()
     {
-        if (OVRInput.GetDown(OVRInput.Button.One))
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger))
         {
-            // 2초간 누른뒤에 손을 떼야 폭발가능
-            rayTime += Time.deltaTime;
+            print("버튼 누름");
+            rayTrigger = true;
+        }
 
-            lr.enabled = true; // 끝에서 다시 끌 것
+        int layerMask = 1 << 8;
+
+        layerMask = ~layerMask;
+
+        if (rayTrigger)
+        {
+            rayTime += Time.deltaTime;
+            // lr.enabled = true; // 끝에서 다시 끌 것
             // 눈에서 레이저 발사
             Ray ray = new Ray(raypoint.transform.position, raypoint.transform.forward);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+
+            if (Physics.Raycast(ray, out hit, 100f, layerMask))
             {
-                lr.SetPosition(0, transform.position);
-                lr.SetPosition(1, hit.point);
+                rayBoomPoint = hit;
+                photonView.RPC("RpcVrRay", RpcTarget.All, raypoint.transform.position, hit.point);
+                //lr.SetPosition(0, raypoint.transform.position);
+                //lr.SetPosition(1, hit.point);
             }
+            
             else
             {
                 // 부딪힌 지점 없으면 오른손에서 몇미터 앞 까지만 라인 그려라
-                lr.SetPosition(0, transform.position);
-                lr.SetPosition(1, transform.position + transform.forward * 100);
-            }
-
-            if (OVRInput.GetUp(OVRInput.Button.One) && rayTime >= 2f)
-            {
-                rayTime = 0;
-                lr.enabled = false;
-                GameObject rayBoom = PhotonNetwork.Instantiate("RayBoom", transform.position, Quaternion.identity);
-
-            }
-            else
-            {
-                rayTime = 0;
-                lr.enabled = false;
+                photonView.RPC("RpcVrRay", RpcTarget.All, raypoint.transform.position, raypoint.transform.position + raypoint.transform.forward * 100);
+                //lr.SetPosition(0, raypoint.transform.position);
+                //lr.SetPosition(1, raypoint.transform.position + raypoint.transform.forward * 100);
             }
         }
 
-    }
+        if (OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger) && rayTime > 2f)
+        {
+            rayTime = 0;
+            rayTrigger = false;
+            GameObject rayBoom = PhotonNetwork.Instantiate("RayBoom", rayBoomPoint.point, Quaternion.identity);
+            GameObject booom = PhotonNetwork.Instantiate("MagicExplosion", rayBoomPoint.point, Quaternion.identity);
 
+            photonView.RPC("RpcVrRay", RpcTarget.All, raypoint.transform.position, raypoint.transform.position);
+            //lr.SetPosition(0, raypoint.transform.position);
+            //lr.SetPosition(1, raypoint.transform.position);
+        }
+        if (OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger) && rayTime < 2f)
+        {
+            rayTime = 0;
+            rayTrigger = false;
+            photonView.RPC("RpcVrRay", RpcTarget.All, raypoint.transform.position, raypoint.transform.position);
+            //lr.SetPosition(0, raypoint.transform.position);
+            //lr.SetPosition(1, raypoint.transform.position);
+        }
+        
+    }
+    [PunRPC]
+    void RpcVrRay(Vector3 startPos, Vector3 endPos)
+    {
+        lr.SetPosition(0, startPos);
+        lr.SetPosition(1, endPos);
+    }
 
     void PcPlayerMove()
     {
