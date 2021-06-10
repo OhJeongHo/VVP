@@ -1,12 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class LsSwitch : MonoBehaviour
 {
-
-    
-
     public LaserTurret Las;
 
     void Start()
@@ -21,18 +19,20 @@ public class LsSwitch : MonoBehaviour
     }
     public void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if(PhotonNetwork.IsMasterClient)
         {
-            print("플레이어충돌");
-            other.gameObject.SetActive(false);
-            RColor();
-            Las.GetComponentInChildren<LaserTurret>().enabled = true;
-            Las.GetComponentInChildren<LaserTurret>().pcplayer = other.gameObject;
-            Las.GetComponentInChildren<Camera>().enabled = true;
-            GameObject.Find("Camera").transform.GetChild(2).gameObject.SetActive(true);
-            Las.GetComponentInChildren<LaserTurret>().TankCt();
-
-
+            if (other.CompareTag("Player"))
+            {
+                LaserTurret lt = Las.GetComponentInChildren<LaserTurret>();
+                print("플레이어충돌");
+                //other.gameObject.SetActive(false);
+                RColor();
+                lt.enabled = true;
+                lt.pcplayer = other.gameObject;
+                //Las.GetComponentInChildren<Camera>().enabled = true;
+                //GameObject.Find("Camera").transform.GetChild(2).gameObject.SetActive(true);
+                lt.TankCt();
+            }
         }
     }
 

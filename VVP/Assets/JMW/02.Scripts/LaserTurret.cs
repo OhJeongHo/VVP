@@ -1,10 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class LaserTurret : MonoBehaviour
+public class LaserTurret : MonoBehaviourPun, IPunObservable
 {
-    //public LobbyActiveJMW Lb;
+    private Quaternion currRot;
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(this.gameObject.transform.rotation);
+        }
+
+        else
+        {
+            currRot = (Quaternion)stream.ReceiveNext();
+            transform.rotation = Quaternion.Lerp(transform.rotation, currRot, 0.2f);
+        }
+        //public LobbyActiveJMW Lb;
+    }
+
+    //PhotonView pc = GameObject.Find("Turet01").GetComponentInChildren<LaserTurret>();
 
     GameObject par;
 
@@ -37,16 +55,20 @@ public class LaserTurret : MonoBehaviour
     public bool useVertical = false;
     public bool useHorizontal = false;
 
+    
+
+
 
     void Start()
     {
 
     }
 
-
+    
     void Update()
-    {
+    {   
         
+
         TurretMove();
 
         if (Input.GetMouseButtonDown(0))
@@ -64,10 +86,8 @@ public class LaserTurret : MonoBehaviour
             
 
             obj1.SetActive(true);
-
         }
     }
-
 
     public void TurretMove()
     {
@@ -103,7 +123,6 @@ public class LaserTurret : MonoBehaviour
         }
     }
 
-
     void DangerMarkerShoot()
     {
         Vector3 NewPosition = new Vector3(transform.position.x, transform.position.y - 1.5f, transform.position.z);
@@ -118,8 +137,8 @@ public class LaserTurret : MonoBehaviour
     }
 
 
-    
 
+   
     void ShootLaser()
     {
         SoundManager.instance.LaserShott();
@@ -163,7 +182,6 @@ public class LaserTurret : MonoBehaviour
 
 
     }
-
     public void TankCt()
     {
         tankCtrl = true;
