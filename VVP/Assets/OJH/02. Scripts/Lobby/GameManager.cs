@@ -56,25 +56,5 @@ public class GameManager : MonoBehaviourPun
     {
         rocketCnt += addValue;
     }
-
-    
-    //public void OtherRocketImg(int addvalue)
-    //{
-    //    otherRocketCnt += addvalue;
-    //    if (otherRocketCnt == 0)
-    //    {
-    //        if (otherRocket.GetComponent<MeshRenderer>().enabled == true)
-    //        {
-    //            otherRocket.GetComponent<MeshRenderer>().enabled = false;
-    //        }
-    //    }
-    //    if (otherRocketCnt > 0)
-    //    {
-    //        if (otherRocket.GetComponent<MeshRenderer>().enabled == false)
-    //        {
-    //            otherRocket.GetComponent<MeshRenderer>().enabled = true;
-    //        }
-    //    }
-    //}
 }
 

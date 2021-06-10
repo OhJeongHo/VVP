@@ -28,8 +28,8 @@ public class Keyboardpopup : MonoBehaviour
     }
     public void InputEnd()
     {
-        keyboard1.SetActive(false);
         keyboard2.SetActive(false);
         keyboard3.SetActive(false);
+        keyboard1.SetActive(false);
     }
 }

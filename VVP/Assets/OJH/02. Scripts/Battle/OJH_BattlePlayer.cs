@@ -17,6 +17,10 @@ public class OJH_BattlePlayer : MonoBehaviourPun
     public Camera pccam;
     public GameObject playerRocket;
     public GameObject otherRocket;
+    public GameObject raypoint;
+    public GameObject rayBoom;
+
+    LineRenderer lr;
 
     public bool rocketMode = false;
     public bool sternMode = false;
@@ -31,6 +35,7 @@ public class OJH_BattlePlayer : MonoBehaviourPun
     public float jumpPower = 2;
     float gravity = -9.8f;
     float currTime;
+    float rayTime;
 
     PcPlayerState state;
     public Animator anim;
@@ -40,10 +45,16 @@ public class OJH_BattlePlayer : MonoBehaviourPun
     // Start is called before the first frame update
     void Start()
     {
+        if(photonView.IsMine == false)
+        {
+            playerRocket = otherRocket;
+        }
+
         anim = GetComponentInChildren<Animator>();
         state = PcPlayerState.Idle;
+        lr = GetComponent<LineRenderer>();
 
-        if(gameObject.layer == 8)
+        if (gameObject.layer == 8)
         {
             GameObject.Find("Tur1 (2)").GetComponentInChildren<Tower>().target = Mask.transform;
         }
@@ -112,13 +123,41 @@ public class OJH_BattlePlayer : MonoBehaviourPun
 
     void VrPlayerMove()
     {
-        
-        //Vector2 joyStickR = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch);
-        //if (joyStickR.magnitude > 0)
-        //{
-        //    print(joyStickR.x + ",  " + joyStickR.y);
-        //}
-        //transform.Rotate(0, joyStickR.x * 70 * Time.deltaTime, 0);
+        if (OVRInput.GetDown(OVRInput.Button.One))
+        {
+            // 2초간 누른뒤에 손을 떼야 폭발가능
+            rayTime += Time.deltaTime;
+
+            lr.enabled = true; // 끝에서 다시 끌 것
+            // 눈에서 레이저 발사
+            Ray ray = new Ray(raypoint.transform.position, raypoint.transform.forward);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                lr.SetPosition(0, transform.position);
+                lr.SetPosition(1, hit.point);
+            }
+            else
+            {
+                // 부딪힌 지점 없으면 오른손에서 몇미터 앞 까지만 라인 그려라
+                lr.SetPosition(0, transform.position);
+                lr.SetPosition(1, transform.position + transform.forward * 100);
+            }
+
+            if (OVRInput.GetUp(OVRInput.Button.One) && rayTime >= 2f)
+            {
+                rayTime = 0;
+                lr.enabled = false;
+                GameObject rayBoom = PhotonNetwork.Instantiate("RayBoom", transform.position, Quaternion.identity);
+
+            }
+            else
+            {
+                rayTime = 0;
+                lr.enabled = false;
+            }
+        }
+
     }
 
 
@@ -192,7 +231,7 @@ public class OJH_BattlePlayer : MonoBehaviourPun
                 if (currTime >= 5)
                 {
                     GameManager.instance.RocketCount(-1);
-                    photonView.RPC("MyRocketImg", RpcTarget.All);
+                    photonView.RPC("MyRocketImg", RpcTarget.All, GameManager.instance.rocketCnt);
                     rocketMode = false;
                     currTime = 0;
                 }
@@ -208,25 +247,28 @@ public class OJH_BattlePlayer : MonoBehaviourPun
     }
 
     [PunRPC]
-    public void MyRocketImg()
+    public void MyRocketImg(int rockCnt)
     {
-        if (photonView.IsMine)
-        {
-            if (GameManager.instance.rocketCnt == 0)
-            {
-                if (playerRocket.GetComponent<MeshRenderer>().enabled == true)
-                {
-                    playerRocket.GetComponent<MeshRenderer>().enabled = false;
-                }
-            }
-            if (GameManager.instance.rocketCnt > 0)
-            {
-                if (playerRocket.GetComponent<MeshRenderer>().enabled == false)
-                {
-                    playerRocket.GetComponent<MeshRenderer>().enabled = true;
-                }
-            }
-        }
+        playerRocket.GetComponent<MeshRenderer>().enabled = rockCnt > 0;
+
+
+        //if (photonView.IsMine)
+        //{
+        //    if (GameManager.instance.rocketCnt == 0)
+        //    {
+        //        if (playerRocket.GetComponent<MeshRenderer>().enabled == true)
+        //        {
+        //            playerRocket.GetComponent<MeshRenderer>().enabled = false;
+        //        }
+        //    }
+        //    if (GameManager.instance.rocketCnt > 0)
+        //    {
+        //        if (playerRocket.GetComponent<MeshRenderer>().enabled == false)
+        //        {
+        //            playerRocket.GetComponent<MeshRenderer>().enabled = true;
+        //        }
+        //    }
+        //}
     }
     void Idle()
     {
@@ -328,7 +370,7 @@ public class OJH_BattlePlayer : MonoBehaviourPun
             {
                 print("내가 먹음");
                 GameManager.instance.RocketCount(1);
-                photonView.RPC("MyRocketImg", RpcTarget.All);
+                photonView.RPC("MyRocketImg", RpcTarget.All, GameManager.instance.rocketCnt);
             }
             //if (!photonView.IsMine)
             //{
