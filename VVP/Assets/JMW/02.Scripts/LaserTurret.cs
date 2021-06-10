@@ -135,17 +135,17 @@ public class LaserTurret : MonoBehaviourPun, IPunObservable
         {
             if (hit.transform.CompareTag("Wall"))
             {
-                photonView.RPC("RpcDangerMarkerShoot", RpcTarget.All, NewPosition, hit);
+                photonView.RPC("RpcDangerMarkerShoot", RpcTarget.All, NewPosition, hit.point);
             }
         }
 
     }
 
     [PunRPC]
-    void RpcDangerMarkerShoot(Vector3 pos, RaycastHit point)
+    void RpcDangerMarkerShoot(Vector3 pos, Vector3 point, Quaternion Rotation)
     {
         GameObject DangerMarkerClone = Instantiate(DangerMarker, pos, transform.rotation);
-        DangerMarkerClone.GetComponent<DangerLine>().EndPosition = point.point;
+        DangerMarkerClone.GetComponent<DangerLine>().EndPosition = point;
 
     }
 
