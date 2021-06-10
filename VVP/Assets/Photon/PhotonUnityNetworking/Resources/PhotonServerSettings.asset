@@ -42,6 +42,7 @@ MonoBehaviour:
   - RespawnSpaceship
   - RpcTankCt
   - RpcTurretMove
+  - RpcVrRay
   - SendIsVR
   DisableAutoOpenWizard: 1
   ShowSettings: 1
