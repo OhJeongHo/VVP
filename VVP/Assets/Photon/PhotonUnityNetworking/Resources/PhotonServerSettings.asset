@@ -40,6 +40,11 @@ MonoBehaviour:
   - Fire
   - RespawnSpaceship
   - SendIsVR
+  - TurretMove
+  - DangerMarkerShoot
+  - ShootLaser
+  - TankCt
+  - Update
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
