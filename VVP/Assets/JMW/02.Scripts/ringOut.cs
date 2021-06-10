@@ -18,6 +18,9 @@ public class ringOut : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.layer == 11)
+        {
+
         OJH_BattlePlayer pm = other.gameObject.GetComponent<OJH_BattlePlayer>();
         if(pm)
         {
@@ -28,6 +31,7 @@ public class ringOut : MonoBehaviour
         ScoreCnt.vrCnt += 1;
 
         StartCoroutine(Delay(pm));
+        }
     }
 
     IEnumerator Delay(OJH_BattlePlayer pm)
