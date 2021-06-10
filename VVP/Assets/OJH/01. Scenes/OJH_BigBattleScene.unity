@@ -9851,6 +9851,7 @@ MonoBehaviour:
   Tankpos: {fileID: 1693493649}
   lss: {fileID: 0}
   pcplayer: {fileID: 0}
+  line: {fileID: 597463754}
   FirePoss: {fileID: 1254096109}
   bulletFactory: {fileID: 2532850428631612969, guid: 5d9c437b9085dbc48bd213681fd16281, type: 3}
   layerMask:
@@ -9879,6 +9880,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
+  - {fileID: 847205633}
   - {fileID: 847205631}
   sceneViewId: 1
   InstantiationId: 0
@@ -22030,6 +22032,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isVR: 0
   rocketCnt: 0
+  myPhotonView: {fileID: 0}
 --- !u!4 &2103425268
 Transform:
   m_ObjectHideFlags: 0

@@ -5112,6 +5112,7 @@ MonoBehaviour:
   playerRocket: {fileID: 2582770315902704015}
   otherRocket: {fileID: 5178710569327147450}
   raypoint: {fileID: 2137908353192749540}
+  rayBoom: {fileID: 0}
   rocketMode: 0
   sternMode: 0
   cc: {fileID: 2581595995834469606}

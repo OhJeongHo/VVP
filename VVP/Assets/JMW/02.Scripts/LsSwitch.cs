@@ -23,15 +23,14 @@ public class LsSwitch : MonoBehaviour
         {
             if (other.CompareTag("Player"))
             {
-                LaserTurret lt = Las.GetComponentInChildren<LaserTurret>();
                 print("플레이어충돌");
                 //other.gameObject.SetActive(false);
                 RColor();
-                lt.enabled = true;
-                lt.pcplayer = other.gameObject;
+                LaserTurret lt = Las.GetComponentInChildren<LaserTurret>();
+                
                 //Las.GetComponentInChildren<Camera>().enabled = true;
                 //GameObject.Find("Camera").transform.GetChild(2).gameObject.SetActive(true);
-                lt.TankCt();
+                lt.TankCt(other.GetComponent<PhotonView>().ViewID);
             }
         }
     }

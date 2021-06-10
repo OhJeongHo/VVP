@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviourPun
     public bool isVR;
     public int rocketCnt;
 
+    public PhotonView myPhotonView;
+    public List<PhotonView> players;
+
     public static bool isPresent()
     {
         var xrDisplaySubsystems = new List<XRDisplaySubsystem>();
@@ -55,6 +58,16 @@ public class GameManager : MonoBehaviourPun
     public void RocketCount(int addValue)
     {
         rocketCnt += addValue;
+    }
+
+    public PhotonView GetPhotonView(int viewId)
+    {
+        for(int i = 0; i < players.Count; i++)
+        {
+            if (players[i].ViewID == viewId)
+                return players[i];
+        }
+        return null;
     }
 }
 

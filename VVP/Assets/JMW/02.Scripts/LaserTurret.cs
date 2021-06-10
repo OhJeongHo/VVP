@@ -33,8 +33,9 @@ public class LaserTurret : MonoBehaviourPun, IPunObservable
 
     GameObject tempObj;
 
-    bool tankCtrl = true;
-    public GameObject pcplayer;
+    bool tankCtrl = false;
+    public PhotonView pcplayer;
+    public GameObject line;
 
     GameObject cam;
 
@@ -67,26 +68,26 @@ public class LaserTurret : MonoBehaviourPun, IPunObservable
     
     void Update()
     {   
-        
-
-        TurretMove();
-
-        if (Input.GetMouseButtonDown(0))
+        if(tankCtrl == true)
         {
-            DangerMarkerShoot();
-            tankCtrl = false;
-            GameObject obj1 = GameObject.Find("line");
-            obj1.SetActive(false);
+            TurretMove();
 
-            par = GameObject.Find("Weapon").transform.GetChild(1).gameObject;
-            par.SetActive(true);
-            SoundManager.instance.LaserChagerr();
+            if (Input.GetMouseButtonDown(0))
+            {
+                //DangerMarkerShoot();
+                //tankCtrl = false;
+                //GameObject obj1 = GameObject.Find("line");
+                //obj1.SetActive(false);
 
-            Invoke("ShootLaser", 3f);
-            
+                //par = GameObject.Find("Weapon").transform.GetChild(1).gameObject;
+                //par.SetActive(true);
+                //SoundManager.instance.LaserChagerr();
 
-            obj1.SetActive(true);
-        }
+                //Invoke("ShootLaser", 3f);
+
+
+            }
+        }       
     }
 
     public void TurretMove()
@@ -112,13 +113,17 @@ public class LaserTurret : MonoBehaviourPun, IPunObservable
             {
                 rotY += mx * rotSpeed * Time.deltaTime;
             }
+            photonView.RPC("RpcTurretMove", RpcTarget.All, rotX, rotY);
+        }
+    }
 
-
-            rotX = Mathf.Clamp(rotX, -90, 90);
-
-            transform.localEulerAngles = new Vector3(rotX, rotY, 0);
-
-
+    [PunRPC]
+    void RpcTurretMove(float x, float y)
+    {
+        if(photonView.IsMine)
+        {
+            x = Mathf.Clamp(x, -90, 90);
+            transform.localEulerAngles = new Vector3(x, y, 0);
 
         }
     }
@@ -126,14 +131,15 @@ public class LaserTurret : MonoBehaviourPun, IPunObservable
     void DangerMarkerShoot()
     {
         Vector3 NewPosition = new Vector3(transform.position.x, transform.position.y - 1.5f, transform.position.z);
-        Physics.Raycast(NewPosition, transform.forward, out RaycastHit hit, 1000f, layerMask);
-
-
-        if (hit.transform.CompareTag("Wall"))
+        if(Physics.Raycast(NewPosition, transform.forward, out RaycastHit hit, 1000f, layerMask))
         {
-            GameObject DangerMarkerClone = Instantiate(DangerMarker, NewPosition, transform.rotation);
-            DangerMarkerClone.GetComponent<DangerLine>().EndPosition = hit.point;
+            if (hit.transform.CompareTag("Wall"))
+            {
+                GameObject DangerMarkerClone = Instantiate(DangerMarker, NewPosition, transform.rotation);
+                DangerMarkerClone.GetComponent<DangerLine>().EndPosition = hit.point;
+            }
         }
+
     }
 
 
@@ -150,7 +156,7 @@ public class LaserTurret : MonoBehaviourPun, IPunObservable
         tankCtrl = false;
 
         pcplayer.transform.position = Tankpos.position;
-        pcplayer.SetActive(true);
+        pcplayer.gameObject.SetActive(true);
         //lss.GetComponent<LsSwitch>().BColor();
 
         GameObject.Find("LaserSW").GetComponent<LsSwitch>().Invoke("BColor",15f);
@@ -182,9 +188,27 @@ public class LaserTurret : MonoBehaviourPun, IPunObservable
 
 
     }
-    public void TankCt()
+    public void TankCt(int viewId)
     {
-        tankCtrl = true;
+        photonView.RPC("RpcTankCt", RpcTarget.All, viewId);
+        //Las.GetComponentInChildren<Camera>().enabled = true;
+        //GameObject.Find("Camera").transform.GetChild(2).gameObject.SetActive(true);
+    }
+    [PunRPC]
+    void RpcTankCt(int viewId)
+    {
+        enabled = true;
+        pcplayer = GameManager.instance.GetPhotonView(viewId);
+      //  lt.pcplayer = other.gameObject.GetComponent<PhotonView>();
+
+        pcplayer.gameObject.SetActive(false);
+        line.SetActive(true);
+
+        if (GameManager.instance.myPhotonView.ViewID == viewId)
+        {
+            tankCtrl = true;
+            GetComponent<Camera>().enabled = true;
+        }
     }
 }
 

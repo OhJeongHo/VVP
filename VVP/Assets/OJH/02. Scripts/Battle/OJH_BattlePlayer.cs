@@ -45,9 +45,14 @@ public class OJH_BattlePlayer : MonoBehaviourPun
     // Start is called before the first frame update
     void Start()
     {
-        if(photonView.IsMine == false)
+        GameManager.instance.players.Add(photonView);
+        if (photonView.IsMine == false)
         {
             playerRocket = otherRocket;
+        }
+        else
+        {
+            GameManager.instance.myPhotonView = photonView;
         }
 
         anim = GetComponentInChildren<Animator>();
