@@ -74,8 +74,8 @@ public class LaserTurret : MonoBehaviourPun, IPunObservable
 
             if (Input.GetMouseButtonDown(0))
             {
-                //DangerMarkerShoot();
-                //tankCtrl = false;
+                DangerMarkerShoot();
+                tankCtrl = false;
                 //GameObject obj1 = GameObject.Find("line");
                 //obj1.SetActive(false);
 
@@ -135,16 +135,23 @@ public class LaserTurret : MonoBehaviourPun, IPunObservable
         {
             if (hit.transform.CompareTag("Wall"))
             {
-                GameObject DangerMarkerClone = Instantiate(DangerMarker, NewPosition, transform.rotation);
-                DangerMarkerClone.GetComponent<DangerLine>().EndPosition = hit.point;
+                photonView.RPC("RpcDangerMarkerShoot", RpcTarget.All, NewPosition, hit);
             }
         }
 
     }
 
+    [PunRPC]
+    void RpcDangerMarkerShoot(Vector3 pos, RaycastHit point)
+    {
+        GameObject DangerMarkerClone = Instantiate(DangerMarker, pos, transform.rotation);
+        DangerMarkerClone.GetComponent<DangerLine>().EndPosition = point.point;
+
+    }
 
 
-   
+
+
     void ShootLaser()
     {
         SoundManager.instance.LaserShott();
