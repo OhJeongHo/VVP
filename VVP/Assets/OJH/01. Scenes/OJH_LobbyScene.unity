@@ -20220,7 +20220,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isVR: 0
   rocketCnt: 0
-  otherRocketCnt: 0
+  myPhotonView: {fileID: 0}
+  players: []
 --- !u!1001 &2119188059
 PrefabInstance:
   m_ObjectHideFlags: 0

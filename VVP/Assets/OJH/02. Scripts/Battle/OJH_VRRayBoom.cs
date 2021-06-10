@@ -2,13 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OJH_ClapBoom : MonoBehaviour
+public class OJH_VRRayBoom : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject, 1f);
-
         Collider[] colls;
 
         colls = Physics.OverlapSphere(transform.position, 10f);
@@ -21,7 +19,7 @@ public class OJH_ClapBoom : MonoBehaviour
                 Vector3 dir = transform.position - coll.transform.position;
                 dir.Normalize();
 
-                coll.GetComponent<Rigidbody>().AddExplosionForce(1000f, transform.position, 20f, 2f);
+                coll.GetComponent<Rigidbody>().AddExplosionForce(100f, transform.position, 10f, 3f);
                 // 수정 부분
                 if (coll.GetComponent<OJH_BattlePlayer>().rocketMode == true)
                 {
@@ -34,7 +32,11 @@ public class OJH_ClapBoom : MonoBehaviour
                 }
             }
         }
+
+        Destroy(gameObject, 1f);
+
     }
+
     // Update is called once per frame
     void Update()
     {
