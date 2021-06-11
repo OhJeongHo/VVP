@@ -244,6 +244,7 @@ public class LaserTurret : MonoBehaviourPun, IPunObservable
         }
 
         photonView.RPC("RpcActivePlayer", RpcTarget.All, ResetId);
+        
     }
 
 
@@ -260,15 +261,25 @@ public class LaserTurret : MonoBehaviourPun, IPunObservable
         pcplayer.gameObject.SetActive(true);
         pcplayer.transform.position = Tankpos.position;
         par.SetActive(false);
+        RpcResetBalpan();
     }
+    [PunRPC]
+    IEnumerator ResetBalpan()
+    {
+        yield return new WaitForSeconds(15f);
+        lss.GetComponent<LsSwitch>().BColor();
 
-
-
+    }
+    [PunRPC]
+    public void RpcResetBalpan()
+    {
+        StartCoroutine("ResetBalpan");
+    }
 
 
     public void TankCt(int viewId)
     {
-        photonView.RPC("RpcTankCt", RpcTarget.All, viewId);
+    photonView.RPC("RpcTankCt", RpcTarget.All, viewId);
         //Las.GetComponentInChildren<Camera>().enabled = true;
         //GameObject.Find("Camera").transform.GetChild(2).gameObject.SetActive(true);
     }
