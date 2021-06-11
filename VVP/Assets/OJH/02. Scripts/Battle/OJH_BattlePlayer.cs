@@ -17,6 +17,8 @@ public class OJH_BattlePlayer : MonoBehaviourPun
     public Camera pccam;
     public GameObject playerRocket;
     public GameObject otherRocket;
+    public GameObject playerFuel;
+    public GameObject otherFuel;
     public GameObject raypoint;
     public RaycastHit rayBoomPoint;
     bool rayTrigger;
@@ -37,6 +39,8 @@ public class OJH_BattlePlayer : MonoBehaviourPun
     float gravity = -9.8f;
     float currTime;
     float rayTime;
+    public int fuel;
+    float fuelTime;
 
     PcPlayerState state;
     public Animator anim;
@@ -50,6 +54,7 @@ public class OJH_BattlePlayer : MonoBehaviourPun
         if (photonView.IsMine == false)
         {
             playerRocket = otherRocket;
+            playerFuel = otherFuel;
         }
         else
         {
@@ -281,8 +286,6 @@ public class OJH_BattlePlayer : MonoBehaviourPun
     public void MyRocketImg(int rockCnt)
     {
         playerRocket.GetComponent<MeshRenderer>().enabled = rockCnt > 0;
-
-
         //if (photonView.IsMine)
         //{
         //    if (GameManager.instance.rocketCnt == 0)
@@ -300,6 +303,18 @@ public class OJH_BattlePlayer : MonoBehaviourPun
         //        }
         //    }
         //}
+    }
+
+    [PunRPC]
+    public void RpcFuelOn()
+    {
+        playerFuel.GetComponent<MeshRenderer>().enabled = true;
+    }
+
+    [PunRPC]
+    public void RpcFuelOff()
+    {
+        playerFuel.GetComponent<MeshRenderer>().enabled = false;
     }
     void Idle()
     {
@@ -399,27 +414,69 @@ public class OJH_BattlePlayer : MonoBehaviourPun
             // 내가 먹었을 경우에만 로켓숫자를 늘려라
             if (photonView.IsMine)
             {
-                print("내가 먹음");
                 GameManager.instance.RocketCount(1);
                 photonView.RPC("MyRocketImg", RpcTarget.All, GameManager.instance.rocketCnt);
             }
-            //if (!photonView.IsMine)
-            //{
-            //    print("남이 먹음");
-            //    GameManager.instance.OtherRocketImg(1);
-            //}
         }
-        //// 내가 PC인데 VR과 충돌
-        //if (GameManager.instance.isVR == false && other.gameObject.layer == 8)
-        //{
-        //    // 캐릭터컨트롤러 끄고 리기드바이의 이즈키네메틱 꺼버림
-        //    gameObject.GetComponent<CharacterController>().enabled = false;
-        //    gameObject.GetComponent<Rigidbody>().isKinematic = false;
-        //    sternMode = true;
-        //}
+
+        if (other.gameObject.layer == 15)
+        {
+            if (photonView.IsMine)
+            {
+                if (playerFuel.GetComponent<MeshRenderer>().enabled == false)
+                {
+                    DestroyObj(other.gameObject.name);
+                    photonView.RPC("RpcFuelOn", RpcTarget.All);
+                }
+            }
+        }
+    }
+    public void DestroyObj(string name)
+    {
+        photonView.RPC("RpcDestroy", RpcTarget.All, name);
+    }
+    [PunRPC]
+    void RpcDestroy(string name)
+    {
+        GameObject bye = GameObject.Find(name);
+        Destroy(bye);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.layer == 16)
+        {
+            if (playerFuel.GetComponent<MeshRenderer>().enabled)
+            {
+                if (photonView.IsMine)
+                {
+                    fuelTime += Time.deltaTime;
+                    print("연료주입중");
+                }
+                print(fuelTime);
+                if (fuelTime >= 3)
+                {
+                    photonView.RPC("RpcFuelOff", RpcTarget.All);
+                    fuelTime = 0;
+                    photonView.RPC("RpcFuelinput", RpcTarget.All);
+                    //GameManager.instance.FuelCount(1);
+                }
+            }
+        }
+    }
+
+    [PunRPC]
+    void RpcFuelinput()
+    {
+        GameManager.instance.FuelCount(1);
     }
     private void OnTriggerExit(Collider other)
     {
+        if (other.gameObject.layer == 16)
+        {
+            fuelTime = 0;
+        }
+
         if (other.gameObject.layer == 7)
         {
             // 벨로시티를 사용해서
@@ -442,7 +499,7 @@ public class OJH_BattlePlayer : MonoBehaviourPun
     }
 
     [PunRPC]
-    void AniTrigger(string state)
+    public void AniTrigger(string state)
     {
         anim.SetTrigger(state);
     }

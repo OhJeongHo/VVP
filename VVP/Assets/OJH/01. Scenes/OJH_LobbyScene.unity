@@ -20220,6 +20220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isVR: 0
   rocketCnt: 0
+  fuelCnt: 1
   myPhotonView: {fileID: 0}
   players: []
 --- !u!1001 &2119188059

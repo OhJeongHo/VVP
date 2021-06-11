@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace PathCreation.Examples
 {
@@ -8,9 +10,10 @@ namespace PathCreation.Examples
     {
         public PathCreator pathCreator;
         public EndOfPathInstruction endOfPathInstruction;
-        public float speed = 5;
+        public float speed = 0.5f;
         float distanceTravelled;
         float currTime;
+        public GameObject fuelInput;
 
         void Start() {
             if (pathCreator != null)
@@ -22,9 +25,25 @@ namespace PathCreation.Examples
 
         void Update()
         {
-            
             if (pathCreator != null)
             {
+                // 연료없으면 멈춰
+                if (GameManager.instance.fuelCnt == 0)
+                {
+                    print("연료가 없다" + GameManager.instance.fuelCnt);
+                    return;
+                }
+                // 시간 흘러
+                currTime += Time.deltaTime;
+
+                // 연료는 10초 하나씩 소모됨
+                if (currTime >= 10f)
+                {
+                    print("연료 하나 소모됨");
+                    currTime = 0;
+                    GameManager.instance.fuelCnt--;
+                }
+
                 distanceTravelled += speed * Time.deltaTime;
                 transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
                 transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled, endOfPathInstruction);

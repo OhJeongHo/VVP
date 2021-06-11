@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviourPun
 
     public bool isVR;
     public int rocketCnt;
+    public int fuelCnt = 1;
 
     public PhotonView myPhotonView;
     public List<PhotonView> players;
@@ -59,6 +60,11 @@ public class GameManager : MonoBehaviourPun
         rocketCnt += addValue;
     }
 
+    public void FuelCount(int addValue)
+    {
+        fuelCnt += addValue;
+        print(fuelCnt);
+    }
     public PhotonView GetPhotonView(int viewId)
     {
         for(int i = 0; i < players.Count; i++)

@@ -10,6 +10,7 @@ public class ringOut : MonoBehaviourPun
     public GameObject apr;
     public Camera cam;
     public PhotonView pcPlayer;
+    public GameObject outUI;
 
 
     //List<GameObject> objs = new List<GameObject>();
@@ -57,6 +58,7 @@ public class ringOut : MonoBehaviourPun
         {
             // 캠을 켜준다. 그래야 아웃된 놈만 카메라가 이동됨.
             cam.gameObject.SetActive(true);
+            outUI.gameObject.SetActive(true);
         }
 
         // 코루틴함수써서 다시 부활하는 거 동기화 해준다.
@@ -68,34 +70,18 @@ public class ringOut : MonoBehaviourPun
     IEnumerator Respone(int viewId, PhotonView outPlayer)
     {
         yield return new WaitForSeconds(3f);
-        //// 저장된 아웃플레이어 리스트에 본인포톤아이디가 존재할 경우
-        //if (outPlayers.Contains(GameManager.instance.myPhotonView))
-        //{
-        //    // 입력된 값과 내 포톤아이디가 동일하면
-        //    if (GameManager.instance.myPhotonView.ViewID == viewId)
-        //    {
-        //        // 캠을 꺼준다.
-        //        cam.gameObject.SetActive(false);
-
-        //        outPlayers.Contains(GameManager.instance.myPhotonView).gameObject.SetActive(true);
-        //        pcPlayer.gameObject.transform.position = apr.transform.position;
-        //    }
-
-        //    // 리스트에서 나를 빼준다
-        //    outPlayers.Remove(GameManager.instance.myPhotonView);
-
-        //}
-        // 자신의 카메라만 꺼준다
-        // 똑같은 놈의 카메라를 꺼준다.
+        
         if (GameManager.instance.myPhotonView.ViewID == viewId)
         {
             // 캠을 꺼준다. 그래야 아웃된 놈만 카메라가 이동됨.
             cam.gameObject.SetActive(false);
+            outUI.gameObject.SetActive(false);
         }
         // 3초뒤에 오브젝트 다시 활성화 시켜서 부활장소로 옮긴다.
 
         outPlayer.gameObject.SetActive(true);
         outPlayer.gameObject.transform.position = apr.transform.position;
+        
     }
 
     //private void OnTriggerEnter(Collider other)
