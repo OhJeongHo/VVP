@@ -21,10 +21,10 @@ public class OJH_CreateFuel : MonoBehaviourPun
         {
             print("로켓 생성");
             float newX = Random.Range(-27f, 32f), newZ = Random.Range(-2.4f, 37f);
-            PhotonNetwork.Instantiate("Fuel", new Vector3(newX, gameObject.transform.position.y, newZ), Quaternion.Euler(0, 0, 0));
+            PhotonNetwork.Instantiate("Fuel", new Vector3(newX, gameObject.transform.position.y, newZ), Quaternion.Euler(-90, 0, 0));
             // transform.position = new Vector3(newX, gameObject.transform.position.y, newZ);
             float newX2 = Random.Range(-27f, 32f), newZ2 = Random.Range(-2.4f, 37f);
-            PhotonNetwork.Instantiate("Fuel", new Vector3(newX2, gameObject.transform.position.y, newZ2), Quaternion.Euler(0, 0, 0));
+            PhotonNetwork.Instantiate("Fuel", new Vector3(newX2, gameObject.transform.position.y, newZ2), Quaternion.Euler(-90, 0, 0));
             // 포톤으로 연료 생성
             currTime = 0;
         }
