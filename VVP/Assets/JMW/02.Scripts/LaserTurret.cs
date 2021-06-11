@@ -24,7 +24,9 @@ public class LaserTurret : MonoBehaviourPun, IPunObservable
 
     //PhotonView pc = GameObject.Find("Turet01").GetComponentInChildren<LaserTurret>();
 
-    GameObject par;
+    public GameObject par;
+
+    public int ResetId;
 
     public Transform Tankpos;
     public LsSwitch lss;
@@ -76,16 +78,14 @@ public class LaserTurret : MonoBehaviourPun, IPunObservable
             {
                 DangerMarkerShoot();
                 tankCtrl = false;
-                //GameObject obj1 = GameObject.Find("line");
-                //obj1.SetActive(false);
-
-                //par = GameObject.Find("Weapon").transform.GetChild(1).gameObject;
-                //par.SetActive(true);
-                //SoundManager.instance.LaserChagerr();
-
-                //Invoke("ShootLaser", 3f);
 
 
+
+
+
+                StartCoroutine("DelayShoot");//딜레이해야함
+
+                
             }
         }       
     }
@@ -135,7 +135,7 @@ public class LaserTurret : MonoBehaviourPun, IPunObservable
         {
             if (hit.transform.CompareTag("Wall"))
             {
-                photonView.RPC("RpcDangerMarkerShoot", RpcTarget.All, NewPosition, hit.point);
+                photonView.RPC("RpcDangerMarkerShoot", RpcTarget.All, NewPosition, hit.point, transform.rotation);
             }
         }
 
@@ -146,7 +146,11 @@ public class LaserTurret : MonoBehaviourPun, IPunObservable
     {
         GameObject DangerMarkerClone = Instantiate(DangerMarker, pos, transform.rotation);
         DangerMarkerClone.GetComponent<DangerLine>().EndPosition = point;
-
+        GameObject obj1 = GameObject.Find("line");
+        obj1.SetActive(false);
+        //par = GameObject.Find("Weapon").transform.GetChild(1).gameObject;
+        par.SetActive(true);
+        //SoundManager.instance.LaserChagerr();
     }
 
 
@@ -154,28 +158,36 @@ public class LaserTurret : MonoBehaviourPun, IPunObservable
 
     void ShootLaser()
     {
-        SoundManager.instance.LaserShott();
-        GameObject bullet = Instantiate(bulletFactory);
-        bullet.transform.SetParent(FirePoss.transform); //자식파이어포스에서 총알생성 개헤맨부분
-        bullet.transform.position = FirePoss.position;
-        bullet.transform.rotation = FirePoss.rotation;
-        Destroy(bullet, 3f);
-        tankCtrl = false;
+        //SoundManager.instance.LaserShott();
 
-        pcplayer.transform.position = Tankpos.position;
-        pcplayer.gameObject.SetActive(true);
+
+        GameObject bullet = PhotonNetwork.Instantiate("Laser", FirePoss.position, FirePoss.rotation);
+        //GameObject bullet = Instantiate(bulletFactory);
+        //bullet.transform.SetParent(FirePoss.transform); //자식파이어포스에서 총알생성 개헤맨부분
+        //bullet.transform.position = FirePoss.position;
+        //bullet.transform.rotation = FirePoss.rotation;
+        //Destroy(bullet, 3f);
+        //tankCtrl = false;
+
+        //pcplayer.transform.position = Tankpos.position;
+        //pcplayer.gameObject.SetActive(true);
+
+        //photonView.RPC("RpcShootLaser", RpcTarget.All);
         //lss.GetComponent<LsSwitch>().BColor();
 
-        GameObject.Find("LaserSW").GetComponent<LsSwitch>().Invoke("BColor",15f);
+        //GameObject.Find("LaserSW").GetComponent<LsSwitch>().Invoke("BColor",15f);
 
 
-        gameObject.GetComponent<LaserTurret>().enabled = false;
-        gameObject.GetComponent<Camera>().enabled = false;
+        //gameObject.GetComponent<LaserTurret>().enabled = false;
+        //gameObject.GetComponent<Camera>().enabled = false;
 
-        par.SetActive(false);
-        tempObj = GameObject.Find("Camera").transform.GetChild(2).gameObject;
-        tempObj.SetActive(false);
-        
+        //par.SetActive(false);
+        //tempObj = GameObject.Find("Camera").transform.GetChild(2).gameObject;
+        //tempObj.SetActive(false);
+
+
+
+
 
 
 
@@ -189,12 +201,71 @@ public class LaserTurret : MonoBehaviourPun, IPunObservable
         //}
         //this.enabled = false;
 
+    }
 
 
+    //[PunRPC]
+    //void RpcShootLaser(Vector3 fpos, Quaternion frot)
+   // {
+        //GameObject bullet = Instantiate(bulletFactory, fpos, frot);
+        //bullet.transform.SetParent(FirePoss.transform); //자식파이어포스에서 총알생성 개헤맨부분
+        //bullet.transform.position = fpos;
+        //bullet.transform.rotation = frot;
+        //Destroy(bullet, 3f);
+        //tankCtrl = false;
+
+        //pcplayer.transform.position = Tankpos.position;
+        //pcplayer.gameObject.SetActive(true);
+    //}
+
+    IEnumerator DelayShoot()
+    {
+        yield return new WaitForSeconds(3f);
+        GameObject bullet = PhotonNetwork.Instantiate("Laser", FirePoss.position, FirePoss.rotation);
+        //SoundManager.instance.LaserShott();
+        Destroy(bullet, 3f);
+        tankCtrl = false;
+
+
+        PlayerReset();
 
 
 
     }
+
+
+    void PlayerReset()
+    {
+        if(GetComponent<Camera>().enabled == true)
+        {
+            GetComponent<Camera>().enabled = false;
+
+
+        }
+
+        photonView.RPC("RpcActivePlayer", RpcTarget.All, ResetId);
+    }
+
+
+    /*
+    void ActivePlayer(int viewId)
+    {
+        photonView.RPC("RpcActivePlayer", RpcTarget.All, viewId);
+    }
+    */
+    [PunRPC]
+    void RpcActivePlayer(int viewId)
+    {
+       
+        pcplayer.gameObject.SetActive(true);
+        pcplayer.transform.position = Tankpos.position;
+        par.SetActive(false);
+    }
+
+
+
+
+
     public void TankCt(int viewId)
     {
         photonView.RPC("RpcTankCt", RpcTarget.All, viewId);
@@ -206,6 +277,7 @@ public class LaserTurret : MonoBehaviourPun, IPunObservable
     {
         enabled = true;
         pcplayer = GameManager.instance.GetPhotonView(viewId);
+        ResetId = viewId;
       //  lt.pcplayer = other.gameObject.GetComponent<PhotonView>();
 
         pcplayer.gameObject.SetActive(false);
@@ -216,6 +288,8 @@ public class LaserTurret : MonoBehaviourPun, IPunObservable
             tankCtrl = true;
             GetComponent<Camera>().enabled = true;
         }
+
+        
     }
 }
 
