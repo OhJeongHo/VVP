@@ -40,11 +40,14 @@ MonoBehaviour:
   - Fire
   - MyRocketImg
   - RespawnSpaceship
+  - RpcDangerMarkerShoot
   - RpcTankCt
   - RpcTurretMove
   - RpcVrRay
   - SendIsVR
-  - RpcDangerMarkerShoot
+  - RpcShootLaser
+  - ActivePlayer
+  - RpcActivePlayer
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
