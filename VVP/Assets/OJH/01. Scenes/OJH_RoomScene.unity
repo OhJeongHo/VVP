@@ -2522,8 +2522,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -400}
-  m_SizeDelta: {x: 1920, y: 800}
+  m_AnchoredPosition: {x: 39.4, y: -421}
+  m_SizeDelta: {x: 593.6, y: 673.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &344256988
 MonoBehaviour:
@@ -16802,9 +16802,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8433a4f2648ae44e94664b903143a55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRocket: {fileID: 0}
   isVR: 0
   rocketCnt: 0
+  myPhotonView: {fileID: 0}
+  players: []
 --- !u!1001 &2119188059
 PrefabInstance:
   m_ObjectHideFlags: 0

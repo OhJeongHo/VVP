@@ -9,7 +9,6 @@ using Photon.Pun;
 public class GameManager : MonoBehaviourPun
 {
     public static GameManager instance;
-    
 
     // public LobbyActive myplayer;
 

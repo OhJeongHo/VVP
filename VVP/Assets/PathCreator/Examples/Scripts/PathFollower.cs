@@ -10,6 +10,7 @@ namespace PathCreation.Examples
         public EndOfPathInstruction endOfPathInstruction;
         public float speed = 5;
         float distanceTravelled;
+        float currTime;
 
         void Start() {
             if (pathCreator != null)
@@ -21,12 +22,14 @@ namespace PathCreation.Examples
 
         void Update()
         {
+            
             if (pathCreator != null)
             {
                 distanceTravelled += speed * Time.deltaTime;
                 transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled, endOfPathInstruction);
                 transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled, endOfPathInstruction);
             }
+            
         }
 
         // If the path changes during the game, update the distance travelled so that the follower's position on the new path
