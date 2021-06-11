@@ -5,6 +5,7 @@ using Photon.Pun;
 
 public class OJH_Rocket : MonoBehaviourPun
 {
+    float currTime;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +16,13 @@ public class OJH_Rocket : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
+        currTime += Time.deltaTime;
 
+        if (currTime > 10)
+        {
+            Destroy(gameObject);
+            currTime = 0;
+        }
     }
 
 

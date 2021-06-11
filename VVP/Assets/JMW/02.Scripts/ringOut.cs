@@ -17,7 +17,7 @@ public class ringOut : MonoBehaviourPun
 
     void Start()
     {
-        
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -30,7 +30,7 @@ public class ringOut : MonoBehaviourPun
 
         }
     }
-    
+
     public void RingOut(int viewId)
     {
         // 한참동안 작동이 안됐었는데, rpc를 쏘려면 게임오브젝트에 포톤뷰가 붙어있어야한다
@@ -50,6 +50,7 @@ public class ringOut : MonoBehaviourPun
 
         // 일단 pcPlayer를 비활성화한다. 이 놈이 링아웃된 놈이니까.
         pcPlayer.gameObject.SetActive(false);
+        //Destroy(pcPlayer.gameObject);
 
         // 아웃된 사람의 포톤 아이디를 리스트로 저장한다.
 
@@ -70,7 +71,7 @@ public class ringOut : MonoBehaviourPun
     IEnumerator Respone(int viewId, PhotonView outPlayer)
     {
         yield return new WaitForSeconds(3f);
-        
+
         if (GameManager.instance.myPhotonView.ViewID == viewId)
         {
             // 캠을 꺼준다. 그래야 아웃된 놈만 카메라가 이동됨.
@@ -78,34 +79,47 @@ public class ringOut : MonoBehaviourPun
             outUI.gameObject.SetActive(false);
         }
         // 3초뒤에 오브젝트 다시 활성화 시켜서 부활장소로 옮긴다.
+        // PhotonNetwork.Instantiate("BattlePlayer", apr.transform.position, Quaternion.Euler(0, 0, 0));
+        // 이럴경우 로켓카운트를 초기화시켜야함
 
         outPlayer.gameObject.SetActive(true);
         outPlayer.gameObject.transform.position = apr.transform.position;
-        
+        if (outPlayer.gameObject.GetComponent<Rigidbody>().isKinematic == false)
+        {
+            outPlayer.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        }
+        if (outPlayer.gameObject.GetComponent<CharacterController>().enabled == false)
+        {
+            outPlayer.gameObject.GetComponent<CharacterController>().enabled = true;
+        }
+        if (outPlayer.GetComponent<OJH_BattlePlayer>().sternMode == true)
+        {
+            outPlayer.GetComponent<OJH_BattlePlayer>().sternMode = false;
+        }
+
+        //private void OnTriggerEnter(Collider other)
+        //{
+        //    if (other.gameObject.layer == 11)
+        //    {
+
+        //    OJH_BattlePlayer pm = other.gameObject.GetComponent<OJH_BattlePlayer>();
+        //    if(pm)
+        //    {
+        //        pm.enabled = false;
+        //    }
+        //    other.gameObject.transform.position = apr.transform.position;
+        //    print("충돌");
+        //    ScoreCnt.vrCnt += 1;
+
+        //    StartCoroutine(Delay(pm));
+        //    }
+        //}
+
+        //IEnumerator Delay(OJH_BattlePlayer pm)
+        //{
+        //    yield return new WaitForSeconds(0.1f);
+        //    pm.enabled = true;
+        //}
+
     }
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.gameObject.layer == 11)
-    //    {
-
-    //    OJH_BattlePlayer pm = other.gameObject.GetComponent<OJH_BattlePlayer>();
-    //    if(pm)
-    //    {
-    //        pm.enabled = false;
-    //    }
-    //    other.gameObject.transform.position = apr.transform.position;
-    //    print("충돌");
-    //    ScoreCnt.vrCnt += 1;
-
-    //    StartCoroutine(Delay(pm));
-    //    }
-    //}
-
-    //IEnumerator Delay(OJH_BattlePlayer pm)
-    //{
-    //    yield return new WaitForSeconds(0.1f);
-    //    pm.enabled = true;
-    //}
-
 }
