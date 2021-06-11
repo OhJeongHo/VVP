@@ -261,7 +261,7 @@ public class LaserTurret : MonoBehaviourPun, IPunObservable
         pcplayer.gameObject.SetActive(true);
         pcplayer.transform.position = Tankpos.position;
         par.SetActive(false);
-        RpcResetBalpan();
+        photonView.RPC("RpcResetBalpan", RpcTarget.All);
     }
     [PunRPC]
     IEnumerator ResetBalpan()
