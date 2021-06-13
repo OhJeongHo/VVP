@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviourPun
     public bool isVR;
     public int rocketCnt;
     public int fuelCnt = 1;
+    public bool vrwin = false;
+    public bool vrlose = false;
 
     public PhotonView myPhotonView;
     public List<PhotonView> players;

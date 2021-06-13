@@ -144,6 +144,11 @@ public class OJH_BattlePlayer : MonoBehaviourPun
                 RocketFill.GetComponent<Image>().color = Color.red;
                 // RocketUI.transform.Find("Fill").GetComponent<Image>().color = Color.red;
             }
+
+            if (GameManager.instance.rocketCnt == 0)
+            {
+                RocUIAct = false;
+            }
             JumpTime();
             PcPlayerMove();
             Flying();
@@ -293,7 +298,6 @@ public class OJH_BattlePlayer : MonoBehaviourPun
                     GameManager.instance.RocketCount(-1);
                     photonView.RPC("MyRocketImg", RpcTarget.All, GameManager.instance.rocketCnt);
                     rocketMode = false;
-                    RocUIAct = false;
                     currTime = 0;
                 }
             }
@@ -478,10 +482,8 @@ public class OJH_BattlePlayer : MonoBehaviourPun
                 if (photonView.IsMine)
                 {
                     fuelTime += Time.deltaTime;
-                    print("연료주입중");
                 }
-                print(fuelTime);
-                if (fuelTime >= 3)
+                if (fuelTime >= 3.3f)
                 {
                     playerFuel.layer = 18;
                     photonView.RPC("RpcFuelOff", RpcTarget.All);

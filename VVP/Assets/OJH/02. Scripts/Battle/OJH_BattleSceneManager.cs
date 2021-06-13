@@ -13,7 +13,7 @@ public class OJH_BattleSceneManager : MonoBehaviourPunCallbacks
     
     public Text gameTime;
 
-    float setTime = 30;
+    float setTime = 180;
     int min;
     float sec;
     float currTime;
@@ -66,7 +66,10 @@ public class OJH_BattleSceneManager : MonoBehaviourPunCallbacks
             // pc ÆÐ¹è ui ¶ßµµ·Ï
             pclose.SetActive(true);
             // vr ½Â¸® ui ¶ßµµ·Ï
-
+            if (GameManager.instance.isVR)
+            {
+                GameManager.instance.vrwin = true;
+            }
             Invoke("Restart", 3f);
         }
 
@@ -75,6 +78,19 @@ public class OJH_BattleSceneManager : MonoBehaviourPunCallbacks
             // pc ½Â¸® ui ¶ßµµ·Ï
             pcwin.SetActive(true);
             // vr ÆÐ¹è ui ¶ßµµ·Ï
+            if (GameManager.instance.isVR)
+            {
+                GameManager.instance.vrlose = true;
+            }
+        }
+
+        if (GameManager.instance.vrlose)
+        {
+            pcwin.SetActive(true);
+            if (GameManager.instance.isVR)
+            {
+                GameManager.instance.vrlose = true;
+            }
         }
     }
 
