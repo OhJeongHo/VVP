@@ -5,9 +5,13 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     public AudioSource audioSource;
-    public AudioClip gameBG;
+    //public AudioClip gameBG;
     public AudioClip LaserChager;
     public AudioClip LaserShot;
+
+
+
+
     //public AudioClip audioClipApplause;
     //public AudioClip potion;
     //public AudioClip finish;

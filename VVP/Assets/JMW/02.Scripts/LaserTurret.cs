@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.UI;
 
 public class LaserTurret : MonoBehaviourPun, IPunObservable
 {
@@ -23,6 +24,10 @@ public class LaserTurret : MonoBehaviourPun, IPunObservable
     }
 
     //PhotonView pc = GameObject.Find("Turet01").GetComponentInChildren<LaserTurret>();
+
+    public RawImage tl;
+
+    public RawImage tt;
 
     public GameObject par;
 
@@ -122,7 +127,8 @@ public class LaserTurret : MonoBehaviourPun, IPunObservable
     {
         if(photonView.IsMine)
         {
-            x = Mathf.Clamp(x, -90, 90);
+            x = Mathf.Clamp(x, -10, 15);
+
             transform.localEulerAngles = new Vector3(x, y, 0);
 
         }
@@ -150,7 +156,7 @@ public class LaserTurret : MonoBehaviourPun, IPunObservable
         obj1.SetActive(false);
         //par = GameObject.Find("Weapon").transform.GetChild(1).gameObject;
         par.SetActive(true);
-        //SoundManager.instance.LaserChagerr();
+        SoundManager.instance.LaserChagerr();
     }
 
 
@@ -222,8 +228,8 @@ public class LaserTurret : MonoBehaviourPun, IPunObservable
     {
         yield return new WaitForSeconds(3f);
         GameObject bullet = PhotonNetwork.Instantiate("Laser", FirePoss.position, FirePoss.rotation);
-        //SoundManager.instance.LaserShott();
-        Destroy(bullet, 3f);
+        SoundManager.instance.LaserShott();
+        StartCoroutine(DestroyAfter(bullet, 3f));
         tankCtrl = false;
 
 
@@ -232,6 +238,12 @@ public class LaserTurret : MonoBehaviourPun, IPunObservable
 
 
     }
+    IEnumerator DestroyAfter(GameObject target, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        PhotonNetwork.Destroy(target);
+    }
+
 
 
     void PlayerReset()
@@ -261,14 +273,18 @@ public class LaserTurret : MonoBehaviourPun, IPunObservable
         pcplayer.gameObject.SetActive(true);
         pcplayer.transform.position = Tankpos.position;
         par.SetActive(false);
+        tt.GetComponent<RawImage>().enabled = true;
+
         photonView.RPC("RpcResetBalpan", RpcTarget.All);
     }
     [PunRPC]
     IEnumerator ResetBalpan()
     {
         yield return new WaitForSeconds(15f);
-        lss.GetComponent<LsSwitch>().BColor();
-
+        //lss.GetComponent<LsSwitch>().BColor();
+        tt.GetComponent<RawImage>().enabled = false;
+        tl.GetComponent<RawImage>().enabled = true;
+        tl.GetComponent<BoxCollider>().enabled = true;
     }
     [PunRPC]
     public void RpcResetBalpan()

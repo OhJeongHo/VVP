@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 //using Photon.Realtime;
 
 public class LsSwitch : MonoBehaviour
 {
     public LaserTurret Las;
+
+    //public RawImage tl;
 
     void Start()
     {
@@ -27,7 +30,7 @@ public class LsSwitch : MonoBehaviour
                 print("플레이어충돌");
                 //other.gameObject.SetActive(false);
                 //photonView.RPC("RpcRColor", RpcTarget.All);
-                RpcRColor();
+                //RpcRColor();
 
                 LaserTurret lt = Las.GetComponentInChildren<LaserTurret>();
                 
@@ -40,15 +43,16 @@ public class LsSwitch : MonoBehaviour
 
     public void BColor()
     {
-        this.gameObject.GetComponent<Renderer>().material.color = Color.blue;
-        gameObject.GetComponent<BoxCollider>().enabled = true;
+        //this.gameObject.SetActive(true);
+        //tl.GetComponent<RawImage>().enabled = true;
+        //tl.GetComponent<BoxCollider>().enabled = true;
     }
 
-    //[PunRPC]
-    public void RpcRColor()
-    {
-        this.gameObject.GetComponent<Renderer>().material.color = Color.red;
-        gameObject.GetComponent<BoxCollider>().enabled = false;
-    }
+    ////[PunRPC]
+    //public void RpcRColor()
+    //{
+    //    this.gameObject.GetComponent<Renderer>().material.color = Color.red;
+    //    gameObject.GetComponent<BoxCollider>().enabled = false;
+    //}
 
 }
