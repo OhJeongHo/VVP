@@ -39,6 +39,7 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - MyRocketImg
+  - RColor
   - ResetBalpan
   - RespawnSpaceship
   - RpcActivePlayer
@@ -53,7 +54,6 @@ MonoBehaviour:
   - RpcTurretMove
   - RpcVrRay
   - SendIsVR
-  - RColor
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
