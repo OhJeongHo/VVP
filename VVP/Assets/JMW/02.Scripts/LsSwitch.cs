@@ -13,17 +13,17 @@ public class LsSwitch : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     public void OnTriggerEnter(Collider other)
     {
-        if(PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient)
         {
             if (other.CompareTag("Player"))
             {
@@ -33,7 +33,7 @@ public class LsSwitch : MonoBehaviour
                 //RpcRColor();
 
                 LaserTurret lt = Las.GetComponentInChildren<LaserTurret>();
-                
+
                 //Las.GetComponentInChildren<Camera>().enabled = true;
                 //GameObject.Find("Camera").transform.GetChild(2).gameObject.SetActive(true);
                 lt.TankCt(other.GetComponent<PhotonView>().ViewID);
