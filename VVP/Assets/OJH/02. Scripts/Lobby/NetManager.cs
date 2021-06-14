@@ -61,9 +61,31 @@ public class NetManager : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
+        
         // 방 옵션
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.MaxPlayers = byte.Parse(maxUserInput.text);
+
+        string[] keys = { "mode"};
+        roomOptions.CustomRoomPropertiesForLobby = keys;
+
+        ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
+
+        int mode = 0;
+        if (mode1.activeSelf)
+        {
+            mode = 1;
+        }
+        if (mode2.activeSelf)
+        {
+            mode = 2;
+        }
+        if (mode3.activeSelf)
+        {
+            mode = 3;
+        }
+        hash.Add("mode", mode);
+        roomOptions.CustomRoomProperties = hash;
 
         // 방을 만든다
         PhotonNetwork.JoinOrCreateRoom(roomNameInput.text, roomOptions, TypedLobby.Default);
@@ -174,18 +196,9 @@ public class NetManager : MonoBehaviourPunCallbacks
             // 만들어진 roominfo버튼에서 roominfo버튼 컴포넌트 가져와서
             RoomInfomation btn = room.GetComponent<RoomInfomation>();
             // 가져온 컴포넌트의 setinfo함수 호출
-            if (mode1.activeSelf)
-            {
-                btn.Setinfo(info.Name, info.PlayerCount, info.MaxPlayers, 1);
-            }
-            if (mode2.activeSelf)
-            {
-                btn.Setinfo(info.Name, info.PlayerCount, info.MaxPlayers, 2);
-            }
-            if (mode3.activeSelf)
-            {
-                btn.Setinfo(info.Name, info.PlayerCount, info.MaxPlayers, 3);
-            }
+
+            int mode = (int)(info.CustomProperties["mode"]);
+            btn.Setinfo(info.Name, info.PlayerCount, info.MaxPlayers, mode);           
         }
     }
 }

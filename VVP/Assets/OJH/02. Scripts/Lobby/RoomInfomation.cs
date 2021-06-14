@@ -14,6 +14,7 @@ public class RoomInfomation : MonoBehaviour
 
     private void Start()
     {
+        
         //mode1 = GameObject.Find("BattleMode");
         //mode2 = GameObject.Find("BattleModeR");
         //mode3 = GameObject.Find("Togetger");

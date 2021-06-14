@@ -18306,6 +18306,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4728550669643034, guid: 3047bfba4ac524949be26f97330605f7, type: 3}
   m_PrefabInstance: {fileID: 1146084184}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1152881458
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1152881460}
+  - component: {fileID: 1152881459}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1152881459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152881458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8433a4f2648ae44e94664b903143a55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isVR: 0
+  rocketCnt: 0
+  fuelCnt: 1
+  vrwin: 0
+  vrlose: 0
+  vrClose: 0
+  laserClose: 0
+  potanClose: 0
+  myPhotonView: {fileID: 0}
+  players: []
+--- !u!4 &1152881460
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152881458}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.31562042, y: 1.1327152, z: -7.4007483}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1154487986
 GameObject:
   m_ObjectHideFlags: 0
@@ -41065,13 +41118,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa2e393265d00a4eaf23b5f09c684d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raypoint: {fileID: 0}
+  pccam: {fileID: 0}
   cc: {fileID: 0}
   jumpCnt: 0
   jumpTime: 0
   maxjumpCnt: 1
   jumpPower: 2
+  fuel: 0
   anim: {fileID: 0}
+  Mask: {fileID: 0}
 --- !u!143 &8814920088204264781
 CharacterController:
   m_ObjectHideFlags: 0

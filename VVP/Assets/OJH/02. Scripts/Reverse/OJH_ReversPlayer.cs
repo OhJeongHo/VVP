@@ -11,14 +11,16 @@ public class OJH_ReversPlayer : MonoBehaviourPun
         Idle,
         Run,
         Jump,
-        Stern
+
     }
 
-    public GameObject raypoint;
-    public RaycastHit rayBoomPoint;
+
+    public GameObject pccam;
     bool rayTrigger;
 
     LineRenderer lr;
+
+    float laserTime;
 
     Vector3 dir;
     public CharacterController cc;
@@ -31,23 +33,34 @@ public class OJH_ReversPlayer : MonoBehaviourPun
     float gravity = -9.8f;
     float currTime;
     float rayTime;
+    public int fuel;
+    float fuelTime;
 
     PcPlayerState state;
     public Animator anim;
 
+    public GameObject Mask;
+
+    GameObject RocketUI;
+    GameObject RocketFill;
+    float RocketSetTime = 5;
+    bool RocUIAct = false;
 
     // Start is called before the first frame update
     void Start()
     {
         GameManager.instance.players.Add(photonView);
-        if (photonView.IsMine)
+        if (photonView.IsMine == false)
+        {
+
+        }
+        else
         {
             GameManager.instance.myPhotonView = photonView;
         }
+
         anim = GetComponentInChildren<Animator>();
         state = PcPlayerState.Idle;
-
-        lr = GetComponent<LineRenderer>();
     }
 
     // Update is called once per frame
@@ -76,99 +89,130 @@ public class OJH_ReversPlayer : MonoBehaviourPun
                 case PcPlayerState.Jump:
                     Jump();
                     break;
-                case PcPlayerState.Stern:
-
-                    break;
                 default:
                     break;
             }
+
+            JumpTime();
+            PcPlayerMove();
         }
     }
 
-    private void Jump()
-    {
-    }
-
-    private void Run()
-    {
-
-    }
-
-    private void Idle()
-    {
-
-    }
 
     void VrPlayerMove()
+    {
+        
+
+    }
+    
+
+    void PcPlayerMove()
     {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
         dir = transform.forward * v + transform.right * h;
         dir.Normalize();
-        // print(dir);
 
-        cc.Move(dir * 2 * Time.deltaTime);
+        transform.Rotate(0, pccam.transform.rotation.y, 0);
 
-        Vector2 joyStickR = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch);
-        if (joyStickR.magnitude > 0)
+        if (cc.isGrounded)
         {
-            print(joyStickR.x + ",  " + joyStickR.y);
-        }
-        transform.Rotate(0, joyStickR.x * 70 * Time.deltaTime, 0);
-
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger))
-        {
-            print("버튼 누름");
-            rayTrigger = true;
+            jumpCnt = 0;
+            yVelocity = 0;
         }
 
-        int layerMask = 1 << 8;
-
-        layerMask = ~layerMask;
-
-        if (rayTrigger)
+        if (Input.GetButtonDown("Jump") && jumpTime == 0)
         {
-            rayTime += Time.deltaTime;
-            // lr.enabled = true; // 끝에서 다시 끌 것
-            // 눈에서 레이저 발사
-            Ray ray = new Ray(raypoint.transform.position, raypoint.transform.forward);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit, 100f, layerMask))
+            if (jumpCnt < maxjumpCnt)
             {
-                rayBoomPoint = hit;
-                photonView.RPC("RpcVrRay", RpcTarget.All, raypoint.transform.position, hit.point);
-            }
-
-            else
-            {
-                // 부딪힌 지점 없으면 오른손에서 몇미터 앞 까지만 라인 그려라
-                photonView.RPC("RpcVrRay", RpcTarget.All, raypoint.transform.position, raypoint.transform.position + raypoint.transform.forward * 100);
+                yVelocity = jumpPower;
+                jumpCnt++;
+                jumpbool = true;
             }
         }
 
-        if (OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger) && rayTime > 2f)
+        if (cc.isGrounded == false)
         {
-            rayTime = 0;
-            rayTrigger = false;
-            GameObject rayBoom = PhotonNetwork.Instantiate("RayBoom", rayBoomPoint.point, Quaternion.identity);
-            GameObject booom = PhotonNetwork.Instantiate("MagicExplosion", rayBoomPoint.point, Quaternion.identity);
-
-            photonView.RPC("RpcVrRay", RpcTarget.All, raypoint.transform.position, raypoint.transform.position);
+            yVelocity += gravity * 2 / 3 * Time.deltaTime;
+            dir.y = yVelocity;
         }
-        if (OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger) && rayTime < 2f)
+
+        cc.Move(dir * 5 * Time.deltaTime);
+    }
+
+    void JumpTime()
+    {
+        if (jumpbool)
         {
-            rayTime = 0;
-            rayTrigger = false;
-            photonView.RPC("RpcVrRay", RpcTarget.All, raypoint.transform.position, raypoint.transform.position);
+            jumpTime += Time.deltaTime;
+            if (jumpTime > 1)
+            {
+                jumpTime = 0;
+                jumpbool = false;
+            }
+        }
+    }
+
+    void Idle()
+    {
+        Vector3 moveDir = new Vector3(dir.x, 0, dir.z);
+        if (moveDir.magnitude > 0 && !Input.GetButtonDown("Jump"))
+        {
+            state = PcPlayerState.Run;
+            photonView.RPC("AniTrigger", RpcTarget.All, "Run");
+            //anim.SetTrigger("Run");
+        }
+        if (Input.GetButtonDown("Jump") && jumpTime == 0)
+        {
+            state = PcPlayerState.Jump;
+            photonView.RPC("AniTrigger", RpcTarget.All, "Jump");
+            //anim.SetTrigger("Jump");
         }
 
     }
-    [PunRPC]
-    void RpcVrRay(Vector3 startPos, Vector3 endPos)
+
+    void Run()
     {
-        lr.SetPosition(0, startPos);
-        lr.SetPosition(1, endPos);
+        Vector3 moveDir = new Vector3(dir.x, 0, dir.z);
+        if (moveDir.magnitude == 0 && !Input.GetButtonDown("Jump"))
+        {
+            state = PcPlayerState.Idle;
+            photonView.RPC("AniTrigger", RpcTarget.All, "Idle");
+            //anim.SetTrigger("Idle");
+        }
+        if (Input.GetButtonDown("Jump") && jumpTime == 0)
+        {
+            state = PcPlayerState.Jump;
+            photonView.RPC("AniTrigger", RpcTarget.All, "Jump");
+            //anim.SetTrigger("Jump");
+        }
+    }
+
+    void Jump()
+    {
+        if (cc.isGrounded)
+        {
+            Vector3 moveDir = new Vector3(dir.x, 0, dir.z);
+            if (moveDir.magnitude == 0)
+            {
+                state = PcPlayerState.Idle;
+                photonView.RPC("AniTrigger", RpcTarget.All, "Idle");
+                //anim.SetTrigger("Idle");
+            }
+            else
+            {
+                state = PcPlayerState.Run;
+                photonView.RPC("AniTrigger", RpcTarget.All, "Run");
+                //anim.SetTrigger("Run");
+            }
+        }
+    }
+
+
+    [PunRPC]
+    public void AniTrigger(string state)
+    {
+        anim.SetTrigger(state);
     }
 }
