@@ -12,11 +12,11 @@ public class ToSceneManager : MonoBehaviour
     {
         if (GameManager.instance.isVR)
         {
-            PhotonNetwork.Instantiate("BattlePlayer", vrpoint.position, Quaternion.identity);
+            PhotonNetwork.Instantiate("BattlePlayer _to", vrpoint.position, Quaternion.identity);
         }
         else
         {
-            PhotonNetwork.Instantiate("BattlePlayer", pcpoint.position, Quaternion.Euler(0, 180, 0));
+            PhotonNetwork.Instantiate("BattlePlayer _to", pcpoint.position, Quaternion.Euler(0, 180, 0));
         }
     }
 
