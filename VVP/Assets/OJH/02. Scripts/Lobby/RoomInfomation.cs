@@ -18,7 +18,7 @@ public class RoomInfomation : MonoBehaviour
         room = roomName;
 
         // 방제목 ( 현재인원 / 최대인원 )
-        info.text = "[결투모드] : " + roomName + " ( " + currPlayer + " / " + maxPlayer + " )";
+        info.text = "[배틀모드] : " + roomName + " ( " + currPlayer + " / " + maxPlayer + " )";
     }
 
     public void OnClick()
