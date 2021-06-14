@@ -9,7 +9,7 @@ public class OJH_LHand : MonoBehaviour
     public GameObject rock;
     Quaternion rot;
     Vector3 pos;
-
+    float laserTime;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +20,22 @@ public class OJH_LHand : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (GameManager.instance.laserClose)
+        {
+            handModel.transform.parent = null;
+            laserTime += Time.deltaTime;
+            if (laserTime > 4.9)
+            {
+                handModel.transform.parent = transform;
+                handModel.transform.localPosition = pos;
+                handModel.transform.localRotation = rot;
+                laserTime = 0;
+            }
+        }
+        if (GameManager.instance.vrClose)
+        {
+            return;
+        }
     }
     void Rock()
     {
