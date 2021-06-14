@@ -27269,7 +27269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathCreator: {fileID: 184727958}
   endOfPathInstruction: 2
-  speed: 10
+  speed: 0.5
   fuelInput: {fileID: 0}
 --- !u!33 &2738870379186762905
 MeshFilter:

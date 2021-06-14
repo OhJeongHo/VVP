@@ -14974,7 +14974,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1653080265}
         m_TargetAssemblyTypeName: CameraFix, Assembly-CSharp
-        m_MethodName: OnClickBattleStart
+        m_MethodName: OnClickTogether
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16774,6 +16774,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomNameInput: {fileID: 0}
   maxUserInput: {fileID: 0}
+  mode1: {fileID: 0}
+  mode2: {fileID: 0}
+  mode3: {fileID: 0}
   content: {fileID: 0}
   roomInfoFactory: {fileID: 0}
 --- !u!4 &2117414928
@@ -16804,6 +16807,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isVR: 0
   rocketCnt: 0
+  fuelCnt: 1
+  vrwin: 0
+  vrlose: 0
+  vrClose: 0
+  laserClose: 0
+  potanClose: 0
   myPhotonView: {fileID: 0}
   players: []
 --- !u!1001 &2119188059

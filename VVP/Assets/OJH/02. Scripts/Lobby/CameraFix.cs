@@ -33,4 +33,12 @@ public class CameraFix : MonoBehaviour
             PhotonNetwork.LoadLevel("OJH_BigBattleScene");
         }
     }
+
+    public void OnClickTogether()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel("together");
+        }
+    }
 }
