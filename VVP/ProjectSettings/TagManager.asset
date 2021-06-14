@@ -30,8 +30,8 @@ TagManager:
   - Rocket
   - Fuel
   - FuelInput
-  - 
-  - 
+  - PlayerFuelOn
+  - PlayerFuelOff
   - 
   - 
   - 
