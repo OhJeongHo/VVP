@@ -16,6 +16,7 @@ public class OJH_RHand : MonoBehaviour
     float currTime;
     float setTime = 10;
     float laserTime;
+    float portanTime;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +39,20 @@ public class OJH_RHand : MonoBehaviour
                 laserTime = 0;
                 GameManager.instance.vrClose = false;
                 GameManager.instance.laserClose = false;
+            }
+        }
+        if (GameManager.instance.potanClose)
+        {
+            handModel.transform.parent = null;
+            portanTime += Time.deltaTime;
+            if (laserTime > 3)
+            {
+                handModel.transform.parent = transform;
+                handModel.transform.localPosition = pos;
+                handModel.transform.localRotation = rot;
+                portanTime = 0;
+                GameManager.instance.vrClose = false;
+                GameManager.instance.potanClose = false;
             }
         }
         if (GameManager.instance.vrClose)
