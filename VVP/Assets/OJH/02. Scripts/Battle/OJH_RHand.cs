@@ -5,6 +5,7 @@ using Photon.Pun;
 
 public class OJH_RHand : MonoBehaviour
 {
+    
     public GameObject handModel;
     public GameObject leftHand;
     public GameObject rock;
@@ -40,6 +41,7 @@ public class OJH_RHand : MonoBehaviour
         {
             GameObject rocks = PhotonNetwork.Instantiate("Rock", transform.position, Quaternion.identity);
             //rocks.transform.position = transform.position;
+            GameObject rParti = PhotonNetwork.Instantiate("DustSmoke", transform.position, Quaternion.identity);
         }
     }
     private void OnTriggerEnter(Collider other)
