@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviourPun
     public bool vrlose = false;
     public bool vrClose = false;
     public bool laserClose = false;
-    public bool rocketClose = false;
+    public bool potanClose = false;
 
     public PhotonView myPhotonView;
     public List<PhotonView> players;

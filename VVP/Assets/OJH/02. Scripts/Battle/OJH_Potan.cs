@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OJH_Laser : MonoBehaviour
+public class OJH_Potan : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -19,7 +19,7 @@ public class OJH_Laser : MonoBehaviour
     {
         if (other.gameObject.layer == 8)
         {
-            GameManager.instance.laserClose = true;
+            GameManager.instance.potanClose = true;
             GameManager.instance.vrClose = true;
         }
     }
