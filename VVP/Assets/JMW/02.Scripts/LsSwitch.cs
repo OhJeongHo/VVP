@@ -27,7 +27,6 @@ public class LsSwitch : MonoBehaviour
         {
             if (other.CompareTag("Player"))
             {
-                print("플레이어충돌");
                 //other.gameObject.SetActive(false);
                 //photonView.RPC("RpcRColor", RpcTarget.All);
                 //RpcRColor();

@@ -12600,6 +12600,7 @@ GameObject:
   - component: {fileID: 979737425}
   - component: {fileID: 979737424}
   - component: {fileID: 979737421}
+  - component: {fileID: 979737429}
   m_Layer: 5
   m_Name: Active
   m_TagString: Untagged
@@ -12755,6 +12756,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: -3.82, z: 0}
+--- !u!114 &979737429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979737419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65bbffd7ade46f740a8c8f368164472e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &993861217
 GameObject:
   m_ObjectHideFlags: 0
@@ -18269,6 +18282,7 @@ GameObject:
   - component: {fileID: 1467336464}
   - component: {fileID: 1467336467}
   - component: {fileID: 1467336466}
+  - component: {fileID: 1467336468}
   m_Layer: 5
   m_Name: Charging
   m_TagString: Untagged
@@ -18369,6 +18383,18 @@ MonoBehaviour:
   sceneViewId: 32
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &1467336468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1467336462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65bbffd7ade46f740a8c8f368164472e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1469500981
 PrefabInstance:
   m_ObjectHideFlags: 0

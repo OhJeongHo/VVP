@@ -30,7 +30,6 @@ namespace PathCreation.Examples
                 // 연료없으면 멈춰
                 if (GameManager.instance.fuelCnt == 0)
                 {
-                    print("연료가 없다" + GameManager.instance.fuelCnt);
                     return;
                 }
                 // 시간 흘러
@@ -39,7 +38,6 @@ namespace PathCreation.Examples
                 // 연료는 10초 하나씩 소모됨
                 if (currTime >= 15f)
                 {
-                    print("연료 하나 소모됨");
                     currTime = 0;
                     GameManager.instance.fuelCnt--;
                 }

@@ -65,7 +65,6 @@ public class GameManager : MonoBehaviourPun
     public void FuelCount(int addValue)
     {
         fuelCnt += addValue;
-        print(fuelCnt);
     }
     public PhotonView GetPhotonView(int viewId)
     {
