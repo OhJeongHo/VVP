@@ -19,21 +19,21 @@ public class OJH_CreateRocket : MonoBehaviourPun
         currTime2 += Time.deltaTime;
         currTime3 += Time.deltaTime;
 
-        if (currTime > 20)
+        if (currTime > 15)
         {
             float newX = Random.Range(-27f, 32f), newZ = Random.Range(-2.4f, 37f);
             PhotonNetwork.Instantiate("Rocket", new Vector3(newX, gameObject.transform.position.y, newZ), Quaternion.Euler(0, 0, 0));
             // transform.position = new Vector3(newX, gameObject.transform.position.y, newZ);
             currTime = 0;
         }
-        if (currTime2 > 19)
+        if (currTime2 > 14)
         {
             float newX = Random.Range(-27f, 32f), newZ = Random.Range(-2.4f, 37f);
             PhotonNetwork.Instantiate("Rocket", new Vector3(newX, gameObject.transform.position.y, newZ), Quaternion.Euler(0, 0, 0));
             // transform.position = new Vector3(newX, gameObject.transform.position.y, newZ);
             currTime2 = 0;
         }
-        if (currTime3 > 18)
+        if (currTime3 > 13)
         {
             float newX = Random.Range(-27f, 32f), newZ = Random.Range(-2.4f, 37f);
             PhotonNetwork.Instantiate("Rocket", new Vector3(newX, gameObject.transform.position.y, newZ), Quaternion.Euler(0, 0, 0));
