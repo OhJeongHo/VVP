@@ -87,6 +87,7 @@ public class OJH_RHand : MonoBehaviour
             {
                 clap = false;
                 GameObject Clap = PhotonNetwork.Instantiate("ClapBoom", transform.position, Quaternion.identity);
+                GameObject ClapEft = PhotonNetwork.Instantiate("ShockWave", transform.position, Quaternion.identity);
             }
         }
     }
