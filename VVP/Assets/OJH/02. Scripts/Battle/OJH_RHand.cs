@@ -14,6 +14,7 @@ public class OJH_RHand : MonoBehaviour
     bool clap;
     float currTime;
     float setTime = 10;
+    float laserTime;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +25,25 @@ public class OJH_RHand : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.instance.laserClose)
+        {
+            handModel.transform.parent = null;
+            laserTime += Time.deltaTime;
+            if (laserTime > 5)
+            {
+                handModel.transform.parent = transform;
+                handModel.transform.localPosition = pos;
+                handModel.transform.localRotation = rot;
+                laserTime = 0;
+                GameManager.instance.vrClose = false;
+                GameManager.instance.laserClose = false;
+            }
+        }
+        if (GameManager.instance.vrClose)
+        {
+            return;
+        }
+
         if (clap == false)
         {
             currTime += Time.deltaTime;
@@ -33,6 +53,8 @@ public class OJH_RHand : MonoBehaviour
                 currTime = 0;
             }
         }
+
+
     }
     void Rock()
     {

@@ -7,6 +7,7 @@ public class OJH_VrUI : MonoBehaviour
 {
     public GameObject vrwin;
     public GameObject vrlose;
+    public GameObject vrStern;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +24,14 @@ public class OJH_VrUI : MonoBehaviour
         if (GameManager.instance.vrlose)
         {
             vrlose.SetActive(true);
+        }
+        if (GameManager.instance.vrClose)
+        {
+            vrStern.SetActive(true);
+        }
+        if (GameManager.instance.vrClose == false)
+        {
+            vrStern.SetActive(false);
         }
     }
 }

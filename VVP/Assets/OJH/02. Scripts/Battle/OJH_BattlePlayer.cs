@@ -26,6 +26,7 @@ public class OJH_BattlePlayer : MonoBehaviourPun
 
     LineRenderer lr;
 
+    float laserTime;
     public bool rocketMode = false;
     public bool sternMode = false;
 
@@ -158,6 +159,10 @@ public class OJH_BattlePlayer : MonoBehaviourPun
 
     void VrPlayerMove()
     {
+        if (GameManager.instance.vrClose)
+        {
+            return;
+        }
         if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger))
         {
             print("버튼 누름");

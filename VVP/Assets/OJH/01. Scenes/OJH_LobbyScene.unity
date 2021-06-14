@@ -20948,6 +20948,9 @@ MonoBehaviour:
   fuelCnt: 1
   vrwin: 0
   vrlose: 0
+  vrClose: 0
+  laserClose: 0
+  rocketClose: 0
   myPhotonView: {fileID: 0}
   players: []
 --- !u!1001 &2119188059
