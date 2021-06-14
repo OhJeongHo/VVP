@@ -10,6 +10,7 @@ public class OJH_LHand : MonoBehaviour
     Quaternion rot;
     Vector3 pos;
     float laserTime;
+    bool handout = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,13 +25,19 @@ public class OJH_LHand : MonoBehaviour
         {
             handModel.transform.parent = null;
             laserTime += Time.deltaTime;
-            if (laserTime > 4.9)
+
+            if (laserTime > 5)
             {
-                handModel.transform.parent = transform;
-                handModel.transform.localPosition = pos;
-                handModel.transform.localRotation = rot;
+                handout = true;
                 laserTime = 0;
             }
+        }
+        if (handout)
+        {
+            handModel.transform.parent = transform;
+            handModel.transform.localPosition = pos;
+            handModel.transform.localRotation = rot;
+            handout = false;
         }
         if (GameManager.instance.vrClose)
         {
