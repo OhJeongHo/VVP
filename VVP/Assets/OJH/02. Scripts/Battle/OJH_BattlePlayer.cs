@@ -73,12 +73,13 @@ public class OJH_BattlePlayer : MonoBehaviourPun
         lr = GetComponent<LineRenderer>();
         RocketUI = GameObject.Find("RocketSlider");
         RocketFill = GameObject.Find("Fill");
+        GameObject.Find("Tur1 (2)").GetComponentInChildren<Tower>().target = Mask.transform;
 
-        if (gameObject.layer == 8)
-        {
-            GameObject.Find("Tur1 (2)").GetComponentInChildren<Tower>().target = Mask.transform;
-        }
-        
+        //if (gameObject.layer == 8)
+        //{
+        //    GameObject.Find("Tur1 (2)").GetComponentInChildren<Tower>().target = Mask.transform;
+        //}
+
         //if (GameManager.instance.isVR)
         //{
         //    // 손 애니메이션
