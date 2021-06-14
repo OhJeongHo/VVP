@@ -9,6 +9,7 @@ public class NetManager : MonoBehaviourPunCallbacks
 {
     public InputField roomNameInput;
     public InputField maxUserInput;
+    public GameObject mode1, mode2, mode3;
 
     // 规 格废 某矫
     Dictionary<string, RoomInfo> roomCache = new Dictionary<string, RoomInfo>();
@@ -91,8 +92,18 @@ public class NetManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         print("OnJoinedRoom / 规立加!");
-
-        PhotonNetwork.LoadLevel("OJH_RoomScene");
+        if (mode1.activeSelf)
+        {
+            PhotonNetwork.LoadLevel("OJH_RoomScene");
+        }
+        if (mode2.activeSelf)
+        {
+            PhotonNetwork.LoadLevel("OJH_ReverseRoom");
+        }
+        if (mode3.activeSelf)
+        {
+            PhotonNetwork.LoadLevel("OJH_TogetherRoom");
+        }
     }
 
     // 规 立加 角菩

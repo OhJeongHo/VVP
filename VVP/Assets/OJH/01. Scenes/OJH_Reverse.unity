@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 49417a8ab3245374cb209be77f00c7f8, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -507,6 +507,9 @@ MonoBehaviour:
   fuelCnt: 1
   vrwin: 0
   vrlose: 0
+  vrClose: 0
+  laserClose: 0
+  potanClose: 0
   myPhotonView: {fileID: 0}
   players: []
 --- !u!1001 &36533468
@@ -39160,13 +39163,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8814920087462565346}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.88, z: -5.43}
+  m_LocalRotation: {x: 0.09906129, y: -0, z: -0, w: 0.9950813}
+  m_LocalPosition: {x: 0, y: 1.99, z: -2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8814920088657329553}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 11.37, y: 0, z: 0}
 --- !u!20 &8814920087462565350
 Camera:
   m_ObjectHideFlags: 0

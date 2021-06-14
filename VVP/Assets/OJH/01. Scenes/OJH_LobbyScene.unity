@@ -20915,6 +20915,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomNameInput: {fileID: 1181497429}
   maxUserInput: {fileID: 1329397354}
+  mode1: {fileID: 869046883}
+  mode2: {fileID: 1089109342}
+  mode3: {fileID: 922429788}
   content: {fileID: 402801642}
   roomInfoFactory: {fileID: 4162808240183241641, guid: 5bb9eeaa6e12e634692e945735907659, type: 3}
 --- !u!4 &2117414928
@@ -20950,7 +20953,7 @@ MonoBehaviour:
   vrlose: 0
   vrClose: 0
   laserClose: 0
-  rocketClose: 0
+  potanClose: 0
   myPhotonView: {fileID: 0}
   players: []
 --- !u!1001 &2119188059

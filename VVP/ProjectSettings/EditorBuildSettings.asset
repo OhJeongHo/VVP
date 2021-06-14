@@ -14,6 +14,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/OJH/01. Scenes/OJH_BigBattleScene.unity
     guid: 058f6df4c3226c94dab22b9ab9ad412b
+  - enabled: 1
+    path: Assets/OJH/01. Scenes/OJH_ReverseRoom.unity
+    guid: 799652d99d03c414e9c8c85f4eb26e13
+  - enabled: 1
+    path: Assets/OJH/01. Scenes/OJH_Reverse.unity
+    guid: d490a217a5ca1354d8fd1c00dae516cf
+  - enabled: 1
+    path: Assets/OJH/01. Scenes/OJH_Together.unity
+    guid: a0f6b73b585043f4a9bbcca333dd4d71
+  - enabled: 1
+    path: Assets/OJH/01. Scenes/OJH_TogetherRoom.unity
+    guid: af7bc9e45e9d2fd4f9c06df472a86b80
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 2e09d79613b70d4478691936fa623e26, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 3ada7a1296d82a648a78ff9692631382, type: 2}
