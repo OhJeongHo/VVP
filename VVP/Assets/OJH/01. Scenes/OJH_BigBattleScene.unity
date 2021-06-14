@@ -25823,6 +25823,9 @@ MonoBehaviour:
   fuelCnt: 1
   vrwin: 0
   vrlose: 0
+  vrClose: 0
+  laserClose: 0
+  potanClose: 0
   myPhotonView: {fileID: 0}
   players: []
 --- !u!4 &2103425268
@@ -27266,7 +27269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathCreator: {fileID: 184727958}
   endOfPathInstruction: 2
-  speed: 0.5
+  speed: 10
   fuelInput: {fileID: 0}
 --- !u!33 &2738870379186762905
 MeshFilter:

@@ -59,6 +59,7 @@ public class OJH_BattleSceneManager : MonoBehaviourPunCallbacks
             gameTime.text = "남은 시간 : 0초";
             // 제한시간 끝나면 vr 승리
             VRWin = true;
+            Invoke("Restart", 3f);
         }
 
         if (VRWin)
@@ -70,6 +71,7 @@ public class OJH_BattleSceneManager : MonoBehaviourPunCallbacks
             {
                 GameManager.instance.vrwin = true;
             }
+
             Invoke("Restart", 3f);
         }
 
@@ -82,6 +84,7 @@ public class OJH_BattleSceneManager : MonoBehaviourPunCallbacks
             {
                 GameManager.instance.vrlose = true;
             }
+            Invoke("Restart", 3f);
         }
 
         if (GameManager.instance.vrlose)
@@ -91,11 +94,14 @@ public class OJH_BattleSceneManager : MonoBehaviourPunCallbacks
             {
                 GameManager.instance.vrlose = true;
             }
+            Invoke("Restart", 3f);
         }
     }
 
     void Restart()
     {
+        print("재시작!");
+        PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene("OJH_LobbyScene");
     }
 }
