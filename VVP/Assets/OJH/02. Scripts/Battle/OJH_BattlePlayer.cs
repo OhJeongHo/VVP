@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.UI;
 
 public class OJH_BattlePlayer : MonoBehaviourPun
 {
@@ -47,6 +48,11 @@ public class OJH_BattlePlayer : MonoBehaviourPun
 
     public GameObject Mask;
 
+    GameObject RocketUI;
+    GameObject RocketFill;
+    float RocketSetTime = 5;
+    bool RocUIAct = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +70,8 @@ public class OJH_BattlePlayer : MonoBehaviourPun
         anim = GetComponentInChildren<Animator>();
         state = PcPlayerState.Idle;
         lr = GetComponent<LineRenderer>();
+        RocketUI = GameObject.Find("RocketSlider");
+        RocketFill = GameObject.Find("Fill");
 
         if (gameObject.layer == 8)
         {
@@ -125,6 +133,22 @@ public class OJH_BattlePlayer : MonoBehaviourPun
                     break;
             }
 
+            if (RocUIAct == false)
+            {
+                RocketFill.GetComponent<Image>().color = Color.gray;
+                // RocketUI.gameObject.transform.GetComponentInChildren<Image>().color = Color.gray;
+                // RocketUI.transform.Find("Fill").GetComponent<Image>().color = Color.gray;
+            }
+            else
+            {
+                RocketFill.GetComponent<Image>().color = Color.red;
+                // RocketUI.transform.Find("Fill").GetComponent<Image>().color = Color.red;
+            }
+
+            if (GameManager.instance.rocketCnt == 0)
+            {
+                RocUIAct = false;
+            }
             JumpTime();
             PcPlayerMove();
             Flying();
@@ -263,6 +287,11 @@ public class OJH_BattlePlayer : MonoBehaviourPun
             {
                 rocketMode = true;
                 currTime += Time.deltaTime;
+
+                // 로켓 잔여량 ui 표시
+                Slider slider = RocketUI.GetComponent<Slider>();
+                slider.value = (RocketSetTime - currTime) / RocketSetTime;
+
                 // 로켓 부스터 이팩트 넣어야함.
                 if (currTime >= 5)
                 {
@@ -414,6 +443,7 @@ public class OJH_BattlePlayer : MonoBehaviourPun
             // 내가 먹었을 경우에만 로켓숫자를 늘려라
             if (photonView.IsMine)
             {
+                RocUIAct = true;
                 GameManager.instance.RocketCount(1);
                 photonView.RPC("MyRocketImg", RpcTarget.All, GameManager.instance.rocketCnt);
             }
@@ -425,22 +455,23 @@ public class OJH_BattlePlayer : MonoBehaviourPun
             {
                 if (playerFuel.GetComponent<MeshRenderer>().enabled == false)
                 {
-                    DestroyObj(other.gameObject.name);
+                    // DestroyObj(other.gameObject.name);
                     photonView.RPC("RpcFuelOn", RpcTarget.All);
                 }
             }
         }
     }
-    public void DestroyObj(string name)
-    {
-        photonView.RPC("RpcDestroy", RpcTarget.All, name);
-    }
-    [PunRPC]
-    void RpcDestroy(string name)
-    {
-        GameObject bye = GameObject.Find(name);
-        Destroy(bye);
-    }
+
+    //public void DestroyObj(string name)
+    //{
+    //    photonView.RPC("RpcDestroy", RpcTarget.All, name);
+    //}
+    //[PunRPC]
+    //void RpcDestroy(string name)
+    //{
+    //    GameObject bye = GameObject.Find(name);
+    //    Destroy(bye);
+    //}
 
     private void OnTriggerStay(Collider other)
     {
@@ -451,11 +482,10 @@ public class OJH_BattlePlayer : MonoBehaviourPun
                 if (photonView.IsMine)
                 {
                     fuelTime += Time.deltaTime;
-                    print("연료주입중");
                 }
-                print(fuelTime);
-                if (fuelTime >= 3)
+                if (fuelTime >= 3.3f)
                 {
+                    playerFuel.layer = 18;
                     photonView.RPC("RpcFuelOff", RpcTarget.All);
                     fuelTime = 0;
                     photonView.RPC("RpcFuelinput", RpcTarget.All);

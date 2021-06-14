@@ -37,7 +37,7 @@ namespace PathCreation.Examples
                 currTime += Time.deltaTime;
 
                 // 연료는 10초 하나씩 소모됨
-                if (currTime >= 10f)
+                if (currTime >= 15f)
                 {
                     print("연료 하나 소모됨");
                     currTime = 0;

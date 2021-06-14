@@ -27,7 +27,7 @@ public class ringOut : MonoBehaviourPun
         {
             // 알피씨 불가능. 포톤은 int나 float같은것들만 쏠 수 있고 아래처럼 큰 단위는 못보냄. 그래서 함수 거쳐야함.
             RingOut(other.GetComponent<PhotonView>().ViewID);
-
+            other.GetComponent<OJH_BattlePlayer>().playerFuel.layer = 18;
         }
     }
 
@@ -47,10 +47,19 @@ public class ringOut : MonoBehaviourPun
         // 입력받은 viewid값을 게임매니저에 넣고 돌려서 나온 번호를 pcPlayer로 지정한다.
         pcPlayer = GameManager.instance.GetPhotonView(viewId);
         //  lt.pcplayer = other.gameObject.GetComponent<PhotonView>();
-
+        if (pcPlayer.GetComponent<OJH_BattlePlayer>().rocketMode)
+        {
+            pcPlayer.GetComponent<OJH_BattlePlayer>().rocketMode = false;
+        }
         // 일단 pcPlayer를 비활성화한다. 이 놈이 링아웃된 놈이니까.
         pcPlayer.gameObject.SetActive(false);
         //Destroy(pcPlayer.gameObject);
+        if (photonView.IsMine)
+        {
+            pcPlayer.GetComponent<OJH_BattlePlayer>().photonView.RPC("RpcFuelOff", RpcTarget.All);
+            //GameManager.instance.rocketCnt = 0;
+            //pcPlayer.GetComponent<OJH_BattlePlayer>().photonView.RPC("MyRocketImg", RpcTarget.All, GameManager.instance.rocketCnt);
+        }
 
         // 아웃된 사람의 포톤 아이디를 리스트로 저장한다.
 

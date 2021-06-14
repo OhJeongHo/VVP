@@ -9,7 +9,7 @@ public class OJH_VRRayBoom : MonoBehaviour
     {
         Collider[] colls;
 
-        colls = Physics.OverlapSphere(transform.position, 10f);
+        colls = Physics.OverlapSphere(transform.position, 15f);
         foreach (Collider coll in colls)
         {
             if (coll.gameObject.layer == 11)
@@ -19,7 +19,7 @@ public class OJH_VRRayBoom : MonoBehaviour
                 Vector3 dir = transform.position - coll.transform.position;
                 dir.Normalize();
 
-                coll.GetComponent<Rigidbody>().AddExplosionForce(100f, transform.position, 10f, 3f);
+                coll.GetComponent<Rigidbody>().AddExplosionForce(300f, transform.position, 10f, 3f);
                 // 수정 부분
                 if (coll.GetComponent<OJH_BattlePlayer>().rocketMode == true)
                 {
