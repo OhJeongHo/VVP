@@ -31,6 +31,7 @@ public class TowerBullet : MonoBehaviour {
     {
         dir = target.transform.position - transform.position;
         dir.Normalize();
+        transform.forward = dir;
         Destroy(gameObject, 10f);
     }
 

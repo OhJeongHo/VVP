@@ -45,7 +45,7 @@ public class OJH_RHand : MonoBehaviour
         {
             handModel.transform.parent = null;
             portanTime += Time.deltaTime;
-            if (laserTime > 3)
+            if (portanTime > 3)
             {
                 handModel.transform.parent = transform;
                 handModel.transform.localPosition = pos;
