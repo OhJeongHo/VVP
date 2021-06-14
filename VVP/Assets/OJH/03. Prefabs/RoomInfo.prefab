@@ -78,7 +78,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: " [\uACB0\uD22C\uBAA8\uB4DC] : \uBC29\uC774\uB984 ( 1 / 10 )"
+  m_Text: " [\uBC30\uD2C0\uBAA8\uB4DC] : \uBC29\uC774\uB984 ( 1 / 10 )"
 --- !u!1 &4162808240183241641
 GameObject:
   m_ObjectHideFlags: 0

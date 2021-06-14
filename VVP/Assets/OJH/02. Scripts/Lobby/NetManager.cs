@@ -174,7 +174,18 @@ public class NetManager : MonoBehaviourPunCallbacks
             // 만들어진 roominfo버튼에서 roominfo버튼 컴포넌트 가져와서
             RoomInfomation btn = room.GetComponent<RoomInfomation>();
             // 가져온 컴포넌트의 setinfo함수 호출
-            btn.Setinfo(info.Name, info.PlayerCount, info.MaxPlayers);
+            if (mode1.activeSelf)
+            {
+                btn.Setinfo(info.Name, info.PlayerCount, info.MaxPlayers, 1);
+            }
+            if (mode2.activeSelf)
+            {
+                btn.Setinfo(info.Name, info.PlayerCount, info.MaxPlayers, 2);
+            }
+            if (mode3.activeSelf)
+            {
+                btn.Setinfo(info.Name, info.PlayerCount, info.MaxPlayers, 3);
+            }
         }
     }
 }
