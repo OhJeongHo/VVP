@@ -39,8 +39,6 @@ public class OJH_ReversPlayer : MonoBehaviourPun
     PcPlayerState state;
     public Animator anim;
 
-    public GameObject Mask;
-
     GameObject RocketUI;
     GameObject RocketFill;
     float RocketSetTime = 5;
