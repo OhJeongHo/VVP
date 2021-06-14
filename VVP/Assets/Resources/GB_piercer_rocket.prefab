@@ -9671,7 +9671,6 @@ GameObject:
   - component: {fileID: 3194542128250307018}
   - component: {fileID: 6882532423471329302}
   - component: {fileID: 3480556102364795475}
-  - component: {fileID: 5470405581152656227}
   m_Layer: 10
   m_Name: GB_piercer_rocket
   m_TagString: Untagged
@@ -9805,22 +9804,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d549b6d7d4c8914fb9c603d94eb77a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5470405581152656227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3211421254498162850}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!1 &3211609802861451700
 GameObject:
   m_ObjectHideFlags: 0
