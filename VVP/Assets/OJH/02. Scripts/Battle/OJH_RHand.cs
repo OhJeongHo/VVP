@@ -64,7 +64,14 @@ public class OJH_RHand : MonoBehaviour
             GameObject rocks = PhotonNetwork.Instantiate("Rock", transform.position, Quaternion.identity);
             //rocks.transform.position = transform.position;
             GameObject rParti = PhotonNetwork.Instantiate("DustSmoke", transform.position, Quaternion.identity);
+            StartCoroutine(DestroyAfter(rParti, 1f));
         }
+    }
+
+    IEnumerator DestroyAfter(GameObject target, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        PhotonNetwork.Destroy(target);
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -83,6 +90,8 @@ public class OJH_RHand : MonoBehaviour
             }
         }
     }
+
+
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.layer == 6)

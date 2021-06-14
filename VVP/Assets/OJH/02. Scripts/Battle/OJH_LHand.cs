@@ -42,7 +42,16 @@ public class OJH_LHand : MonoBehaviour
         if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
         {
             GameObject rocks = PhotonNetwork.Instantiate("Rock", transform.position, Quaternion.identity);
+            GameObject rParti = PhotonNetwork.Instantiate("DustSmoke", transform.position, Quaternion.identity);
+            StartCoroutine(DestroyAfter(rParti, 1f));
+
         }
+    }
+
+    IEnumerator DestroyAfter(GameObject target, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        PhotonNetwork.Destroy(target);
     }
     private void OnTriggerEnter(Collider other)
     {
